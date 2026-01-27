@@ -3,3 +3,5 @@ djangorestframework
 django-cors-headers
 django-admin-rangefilter
 gunicorn
+psycopg2-binary
+dj-database-url
