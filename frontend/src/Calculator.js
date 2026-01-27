@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
+import API_URL from "./api";
 
 const g = 9.81;
 const Cd = 0.47;
@@ -178,7 +179,7 @@ function CalculatorRow({index, data, onRemove, disableRemove, onDuplicate, moveU
     const saveCalculator = async () => {
         const token = localStorage.getItem("token");
         try {
-            const res = await fetch("http://127.0.0.1:8000/accounts/calculators/", {
+            const res = await fetch(`${API_URL}accounts/calculators/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -295,7 +296,7 @@ export default function Calculator() {
     const loadSavedCalculators = async () => {
         const token = localStorage.getItem("token");
         if (!token) return;
-        const res = await fetch("http://127.0.0.1:8000/accounts/calculators/", {
+        const res = await fetch(`${API_URL}/accounts/calculators/`, {
             headers: {Authorization: `Token ${token}`,},});
         const data = await res.json();
         setSavedCalculatorsList(data);
@@ -312,7 +313,7 @@ export default function Calculator() {
         const token = localStorage.getItem("token");
         if (!window.confirm("Usunąć zapisany kalkulator?")) return;
         try {
-            const res = await fetch(`http://127.0.0.1:8000/accounts/calculators/${id}/`, {
+            const res = await fetch(`${API_URL}/accounts/calculators/${id}/`, {
                 method: "DELETE",
                 headers: {Authorization: `Token ${token}`,
                 },

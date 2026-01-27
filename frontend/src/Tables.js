@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import API_URL from "./api";
 
 function Tables() {
     const [replicas, setReplicas] = useState([]);
@@ -10,9 +11,9 @@ function Tables() {
     const fetchData = async () => {
         try {
             const [replicasRes, attachmentsRes, ammunitionRes] = await Promise.all([
-                fetch("http://127.0.0.1:8000/api/replicas/"),
-                fetch("http://127.0.0.1:8000/api/attachments/"),
-                fetch("http://127.0.0.1:8000/api/ammunition/"),
+                fetch(`${API_URL}/api/replicas/`),
+                fetch(`${API_URL}/api/attachments/`),
+                fetch(`${API_URL}/api/ammunition/`),
             ]);
 
             if (!replicasRes.ok || !attachmentsRes.ok || !ammunitionRes.ok) {

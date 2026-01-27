@@ -5,6 +5,7 @@ import Calculator from "./Calculator";
 import './main.css';
 import Login from "./Login";
 import Register from "./Register";
+import API_URL from "./api";
 
 function App() {
 
@@ -21,7 +22,7 @@ function App() {
         const token = localStorage.getItem("token");
         if (!token) return;
         try {
-            const res = await fetch("http://127.0.0.1:8000/accounts/name/", {
+            const res = await fetch(`${API_URL}/accounts/name/`, {
                 headers: {
                     Authorization: `Token ${token}`,
                 },

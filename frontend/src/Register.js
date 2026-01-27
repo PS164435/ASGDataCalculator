@@ -1,4 +1,5 @@
 import { useState } from "react";
+import API_URL from "./api";
 
 function Register({ onAuth }) {
     const [username, setUsername] = useState("");
@@ -12,7 +13,7 @@ function Register({ onAuth }) {
         setError(null);
 
         try {
-            const registerRes = await fetch("http://127.0.0.1:8000/accounts/register/", {
+            const registerRes = await fetch(`${API_URL}/accounts/register/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -39,7 +40,7 @@ function Register({ onAuth }) {
                 return;
             }
 
-            const loginRes = await fetch("http://127.0.0.1:8000/accounts/login/", {
+            const loginRes = await fetch(`${API_URL}/accounts/login/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
