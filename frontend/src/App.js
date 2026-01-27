@@ -36,7 +36,7 @@ function App() {
         } catch (err) {
             alert("Błąd pobierania nazwy")
         }
-    }, [API_URL, logout]);
+    }, [logout]);
 
     useEffect(() => {
         if (loggedIn) {myName();}
