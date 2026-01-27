@@ -12,11 +12,11 @@ function App() {
     const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("token"));
     const [userName, setUserName] = useState(null);
 
-    const logout = () => {
+    const logout = useCallback(() => {
         localStorage.removeItem("token");
         setLoggedIn(false)
         setUserName(null);
-    };
+    }, []);
 
     const myName = useCallback(async () => {
         const token = localStorage.getItem("token");
@@ -39,7 +39,7 @@ function App() {
     }, [logout]);
 
     useEffect(() => {
-        if (loggedIn) {myName();}
+        if (loggedIn) myName();
     }, [loggedIn, myName]);
 
 
