@@ -8,4 +8,5 @@ class SavedCalculator(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.name} ({self.user.email})"
+        return f"{self.name} (user_id={self.user.email})"
+
