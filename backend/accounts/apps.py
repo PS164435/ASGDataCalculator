@@ -1,12 +1,13 @@
 from django.apps import AppConfig
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.contrib.auth.models import get_user_model
 
 class AccountsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = 'accounts'
 
     def ready(self):
+        User = get_user_model()
         username = settings.ADMIN_USERNAME
         email = settings.ADMIN_EMAIL
         password = settings.ADMIN_PASSWORD
@@ -20,4 +21,5 @@ class AccountsConfig(AppConfig):
                 email=email,
                 password=password
             )
+
 
