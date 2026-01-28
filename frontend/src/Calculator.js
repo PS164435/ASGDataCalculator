@@ -177,13 +177,13 @@ function CalculatorRow({index, data, onRemove, disableRemove, onDuplicate, moveU
     const handleHopUpChange = (value) => setHopUp(value);
 
     const saveCalculator = async () => {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("access");
         try {
-            const res = await fetch(`${API_URL}accounts/calculators/`, {
+            const res = await fetch(`${API_URL}/accounts/calculators/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Token ${token}`,
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({
                     name: name,
@@ -204,7 +204,7 @@ function CalculatorRow({index, data, onRemove, disableRemove, onDuplicate, moveU
         <div className={index % 2 === 0 ? "calculator-row-light" : "calculator-row-dark"}>
             <div className="calculator-name">
                 <input value={name} onChange={(e) => handleNameChange(e.target.value)}/>
-                {(localStorage.getItem("token")) && (<button className="button-save" onClick={saveCalculator}>🖫</button>)}
+                {(localStorage.getItem("access")) && (<button className="button-save" onClick={saveCalculator}>🖫</button>)}
             </div>
             <div className="calculator-values">
                 <div className="values-column pair">
@@ -294,10 +294,10 @@ export default function Calculator() {
     const [showSavedCalculatorsList, setShowSavedCalculatorsList] = useState(false);
 
     const loadSavedCalculators = async () => {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("access");
         if (!token) return;
         const res = await fetch(`${API_URL}/accounts/calculators/`, {
-            headers: {Authorization: `Token ${token}`,},});
+            headers: {Authorization: `Bearer ${token}`,},});
         const data = await res.json();
         setSavedCalculatorsList(data);
         setShowSavedCalculatorsList(true);
@@ -310,12 +310,12 @@ export default function Calculator() {
     };
 
     const deleteSavedCalculator = async (id) => {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("access");
         if (!window.confirm("Usunąć zapisany kalkulator?")) return;
         try {
             const res = await fetch(`${API_URL}/accounts/calculators/${id}/`, {
                 method: "DELETE",
-                headers: {Authorization: `Token ${token}`,
+                headers: {Authorization: `Bearer ${token}`,
                 },
             });
             if (!res.ok) {
@@ -344,7 +344,7 @@ export default function Calculator() {
                 />
             ))}
             <button onClick={addRow}>+</button>
-            {(localStorage.getItem("token")) && (<button onClick={loadSavedCalculators}>⌕</button>)}
+            {(localStorage.getItem("access")) && (<button onClick={loadSavedCalculators}>⌕</button>)}
 
             {showSavedCalculatorsList && (
                 <div className="modal-system" onClick={() => setShowSavedCalculatorsList(false)}>
@@ -366,4 +366,5 @@ export default function Calculator() {
             )}
         </div>
     );
+
 }
