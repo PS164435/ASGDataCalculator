@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import RegisterViewSet, LoginViewSet, SavedCalculatorViewSet, NameView
-from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView)
+from rest_framework_simplejwt.views import (TokenRefreshView)
 
 router = DefaultRouter()
 router.register('calculators', SavedCalculatorViewSet, basename='calculator')
@@ -13,3 +13,4 @@ urlpatterns = [
     path('name/', NameView.as_view(), name='name'),
     path('', include(router.urls)),
 ]
+
