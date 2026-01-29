@@ -4,8 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from .models import SavedCalculator
-from .serializers import RegisterSerializer, SavedCalculatorSerializer
-
+from .serializers import RegisterSerializer, SavedCalculatorSerializer, LoginSerializer
 
 class RegisterViewSet(APIView):
     permission_classes = [AllowAny]
@@ -21,6 +20,22 @@ class RegisterViewSet(APIView):
             }, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class LoginViewSet(APIView):
+    permission_classes = [AllowAny]
+    def post(self, request):
+        serializer = LoginSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(
+                serializer.errors,
+                status.HTTP_400_BAD_REQUEST
+            )
+        user = serializer.validated_data['user']
+        refresh = serializer.validated_data['refresh']
+        return Response({
+            "access": str(refresh.access_token),
+            "refresh": str(refresh),
+        }, status=status.HTTP_200_OK)
 
 class SavedCalculatorViewSet(ModelViewSet):
     serializer_class = SavedCalculatorSerializer
@@ -38,4 +53,3 @@ class NameView(APIView):
             "email": request.user.email,
             "first_name": request.user.first_name,
         })
-
