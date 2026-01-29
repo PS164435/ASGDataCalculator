@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import SavedCalculator
+from rest_reamework_simplejwt.serializers import TokenObtainPairSerializer
 
 class RegisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required=True, error_messages={
@@ -72,13 +73,13 @@ class LoginSerializer(TokenObtainPairSerializer):
                 "email" : "Użytkownik nie istnieje"
             })
 
-        user = authenticate(usename=user.username, password=password)
+        user = authenticate(username=user.username, password=password)
         if not user:
             raise serializers.ValidationError({
                 "password" : "Błędne hasło"
             })
         
-        data = suepr().validate({
+        data = super().validate({
             "username": user.username,
             "password": password
         })
@@ -89,4 +90,5 @@ class SavedCalculatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavedCalculator
         fields = ['id', 'name', 'data', 'created_at']
+
 
