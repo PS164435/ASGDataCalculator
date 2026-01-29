@@ -21,21 +21,8 @@ class RegisterViewSet(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class LoginViewSet(APIView):
-    permission_classes = [AllowAny]
-    def post(self, request):
-        serializer = LoginSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response(
-                serializer.errors,
-                status.HTTP_400_BAD_REQUEST
-            )
-        user = serializer.validated_data['user']
-        refresh = serializer.validated_data['refresh']
-        return Response({
-            "access": str(refresh.access_token),
-            "refresh": str(refresh),
-        }, status=status.HTTP_200_OK)
+class LoginViewSet(TokenObtainPairView):
+    serializer_class = LoginSerializer
 
 class SavedCalculatorViewSet(ModelViewSet):
     serializer_class = SavedCalculatorSerializer
@@ -53,3 +40,4 @@ class NameView(APIView):
             "email": request.user.email,
             "first_name": request.user.first_name,
         })
+
