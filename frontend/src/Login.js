@@ -32,7 +32,8 @@ function Login({ onAuth }) {
             console.log("LOGIN RESPONSE:", res.status, data);
 
             if (!res.ok) {
-                setError(data.error || "Błąd logowania");
+                const message = data.email?.[0] || data.password?.[0] || data.non_field_errors?.[0] || "Błąd logowania";
+                setError(message);
                 return;
             }
 
@@ -57,3 +58,4 @@ function Login({ onAuth }) {
 
 }
 export default Login;
+
