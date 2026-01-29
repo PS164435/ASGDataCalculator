@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from .models import SavedCalculator
 from .serializers import RegisterSerializer, SavedCalculatorSerializer, LoginSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 class RegisterViewSet(APIView):
     permission_classes = [AllowAny]
@@ -40,4 +41,5 @@ class NameView(APIView):
             "email": request.user.email,
             "first_name": request.user.first_name,
         })
+
 
