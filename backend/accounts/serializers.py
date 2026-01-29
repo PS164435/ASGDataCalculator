@@ -47,7 +47,19 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         return user
 
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True, error_messages={
+        "blank": "Email nie może być pusty",
+        "required": "Błąd przesłania danych [email]",
+        "invalid": "Email jest błędny",
+    })
+    password = serializers.CharField(required=True, error_messages={
+        "blank": "Hasło nie może być puste",
+        "required": "Błąd przesłania danych [password]",
+    })
+
 class SavedCalculatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavedCalculator
         fields = ['id', 'name', 'data', 'created_at']
+
