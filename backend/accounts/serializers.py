@@ -48,20 +48,22 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         return user
 
-class LoginSerializer(serializers.Serializer):
-    email = serializers.EmailField(required=True, error_messages={
-        "blank": "Email nie może być pusty",
-        "required": "Błąd przesłania danych [email]",
-        "invalid": "Email jest błędny",
-    })
-    password = serializers.CharField(required=True, error_messages={
-        "blank": "Hasło nie może być puste",
-        "required": "Błąd przesłania danych [password]",
-    })
+class LoginSerializer(TokenObtainPairSerializer):
+    username_field = "email"
 
-    def validate(self, data):
-        email = data.get('email')
-        password = data.get('password')
+    def validate(self, attrs):
+        email = attrs.get('email')
+        password = attrs.get('password')
+
+        if not email:
+            raise serializers.ValidationError({
+                "email": "Email nie może być pusty"
+            })
+
+        if not password:
+            raise serializers.ValidationError({
+                "password": "Hasło nie może być puste"
+            })
 
         try:
             user = User.objects.get(email=email)
@@ -70,15 +72,19 @@ class LoginSerializer(serializers.Serializer):
                 "email" : "Użytkownik nie istnieje"
             })
 
-        user = authenticate(username=user.username, password=password)
+        user = authenticate(usename=user.username, password=password)
         if not user:
             raise serializers.ValidationError({
-                "password" : "Błędne hasło",
+                "password" : "Błędne hasło"
             })
+        
+        data = suepr().validate({
+            "username": user.username,
+            "password": password
+        })
 
-        data['user'] = user
         return data
-
+        
 class SavedCalculatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavedCalculator
