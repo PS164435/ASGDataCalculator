@@ -13,6 +13,3 @@ urlpatterns = [
     path('name/', NameView.as_view(), name='name'),
     path('', include(router.urls)),
 ]
-
-
-urlpatterns += router.urls
