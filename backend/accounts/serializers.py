@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import SavedCalculator
-from rest_reamework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class RegisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required=True, error_messages={
@@ -90,5 +90,6 @@ class SavedCalculatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavedCalculator
         fields = ['id', 'name', 'data', 'created_at']
+
 
 
