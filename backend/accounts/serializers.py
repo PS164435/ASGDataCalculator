@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import SavedCalculator
@@ -57,6 +58,26 @@ class LoginSerializer(serializers.Serializer):
         "blank": "Hasło nie może być puste",
         "required": "Błąd przesłania danych [password]",
     })
+
+    def validate(self, data):
+        email = data.get('email')
+        password = data.get('password')
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise serializers.ValidationError({
+                "email" : "Użytkownik nie istnieje"
+            })
+
+        user = authenticate(username=user.username, password=password)
+        if not user:
+            raise serializers.ValidationError({
+                "password" : "Błędne hasło",
+            })
+
+        data['user'] = user
+        return data
 
 class SavedCalculatorSerializer(serializers.ModelSerializer):
     class Meta:
