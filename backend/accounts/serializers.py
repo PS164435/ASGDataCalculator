@@ -50,7 +50,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         return user
 
-class LoginSerializer(TokenObtainPairSerializer):
+class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(required=True, error_messages={
         "blank": "Nazwa nie może być pusta",  
         "required": "Błąd przesłania danych [username]", 
@@ -88,6 +88,7 @@ class SavedCalculatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavedCalculator
         fields = ['id', 'name', 'data', 'created_at']
+
 
 
 
