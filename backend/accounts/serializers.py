@@ -51,11 +51,11 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField(required=True, error_messages={
+    username = serializers.CharField(required=True, allow_blank=False, error_messages={
         "blank": "Nazwa nie może być pusta",  
         "required": "Błąd przesłania danych [username]", 
     })
-    password = serializers.CharField(write_only=True, required=True, error_messages={
+    password = serializers.CharField(write_only=True, required=True, allow_blank=False, error_messages={
         "blank": "Hasło nie może być puste",
         "required": "Błąd przesłania danych [password]",
     })
@@ -88,6 +88,7 @@ class SavedCalculatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavedCalculator
         fields = ['id', 'name', 'data', 'created_at']
+
 
 
 
