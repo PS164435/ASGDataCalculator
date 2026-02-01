@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import SavedCalculator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
 class RegisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required=True, error_messages={
@@ -57,6 +58,7 @@ class LoginSerializer(TokenObtainPairSerializer):
     password = serializers.CharField(write_only=True, required=True, error_messages={
         "blank": "Hasło nie może być puste",
         "required": "Błąd przesłania danych [password]",
+    })
 
     def validate(self, attrs):
         username = attrs.get('username')
@@ -86,6 +88,7 @@ class SavedCalculatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavedCalculator
         fields = ['id', 'name', 'data', 'created_at']
+
 
 
 
