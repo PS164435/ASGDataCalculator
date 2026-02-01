@@ -51,30 +51,34 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField(required=True)
-    password = serializers.CharField(write_only=True, required=True)
+    username = serializers.CharField(required=False, allow_blank=True)
+    password = serializers.CharField(required=False, allow_blank=True, write_only=True)
 
     def validate(self, attrs):
-        username = attrs.get('username')
-        password = attrs.get('password')
+        username = (attrs.get("username") or "").strip()
+        password = (attrs.get("password") or "").strip()
 
-        if not username or not username.strip():
-            raise serializers.ValidationError({"username": "Zanwadsada"})
+        if not username:
+            raise serializers.ValidationError({
+                "username": "Nazwa nie może być pusta"
+            })
 
-        if not password or not password.strip():
-            raise serializers.ValidationError({"password": "hasłooooo"})
-                                               
+        if not password:
+            raise serializers.ValidationError({
+                "password": "Hasło nie może być puste"
+            })
+
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist:
             raise serializers.ValidationError({
-                "username" : "Użytkownik nie istnieje"
+                "username": "Użytkownik nie istnieje"
             })
 
         user = authenticate(username=user.username, password=password)
         if not user:
             raise serializers.ValidationError({
-                "password" : "Błędne hasło"
+                "password": "Błędne hasło"
             })
 
         refresh = RefreshToken.for_user(user)
@@ -88,6 +92,7 @@ class SavedCalculatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavedCalculator
         fields = ['id', 'name', 'data', 'created_at']
+
 
 
 
