@@ -50,16 +50,16 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 class LoginSerializer(TokenObtainPairSerializer):
-    email = serializers.EmailField(required=True)
+    username = serializers.CharField(required=True)
     password = serializers.CharField(required=True, write_only=True)
 
     def validate(self, attrs):
-        email = attrs.get('email')
+        username = attrs.get('username')
         password = attrs.get('password')
 
-        if not email:
+        if not username:
             raise serializers.ValidationError({
-                "email": "Email nie może być pusty"
+                "username": "Email nie może być pusty"
             })
 
         if not password:
@@ -68,10 +68,10 @@ class LoginSerializer(TokenObtainPairSerializer):
             })
 
         try:
-            user = User.objects.get(email=email)
+            user = User.objects.get(username=username)
         except User.DoesNotExist:
             raise serializers.ValidationError({
-                "email" : "Użytkownik nie istnieje"
+                "username" : "Użytkownik nie istnieje"
             })
 
         user = authenticate(username=user.username, password=password)
@@ -91,6 +91,7 @@ class SavedCalculatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavedCalculator
         fields = ['id', 'name', 'data', 'created_at']
+
 
 
 
