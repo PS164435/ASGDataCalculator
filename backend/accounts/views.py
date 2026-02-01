@@ -27,7 +27,7 @@ class LoginViewSet(APIView):
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if not serializer.is_valid():
-            return Response (serializers.error, status=400)
+            return Response (serializer.error, status=400)
         return Response (serializer.validated_data, status=200)
 
 class SavedCalculatorViewSet(ModelViewSet):
@@ -46,6 +46,7 @@ class NameView(APIView):
             "email": request.user.email,
             "first_name": request.user.first_name,
         })
+
 
 
 
