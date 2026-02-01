@@ -59,10 +59,10 @@ class LoginSerializer(serializers.Serializer):
         password = attrs.get('password')
 
         if not username or not username.strip():
-            raise serializers.ValidationError({"username": Zanwadsada"})
+            raise serializers.ValidationError({"username": "Zanwadsada"})
 
         if not password or not password.strip():
-            raise serializers.ValidationError({"password": hasłooooo"})
+            raise serializers.ValidationError({"password": "hasłooooo"})
                                                
         try:
             user = User.objects.get(username=username)
@@ -88,6 +88,7 @@ class SavedCalculatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavedCalculator
         fields = ['id', 'name', 'data', 'created_at']
+
 
 
 
