@@ -62,16 +62,6 @@ class LoginSerializer(TokenObtainPairSerializer):
         username = attrs.get('username')
         password = attrs.get('password')
 
-        if not username:
-            raise serializers.ValidationError({
-                "username": "Email nie może być pusty1"
-            })
-
-        if not password:
-            raise serializers.ValidationError({
-                "password": "Hasło nie może być puste1"
-            })
-
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist:
@@ -84,18 +74,19 @@ class LoginSerializer(TokenObtainPairSerializer):
             raise serializers.ValidationError({
                 "password" : "Błędne hasło"
             })
-        
-        data = super().validate({
-            "username": user.username,
-            "password": password
-        })
 
-        return data
+        refresh = RefreshToken.for_user(user)
+
+        return {
+            "access": str(refresh.access_token),
+            "refresh": str(refresh),
+        }
         
 class SavedCalculatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavedCalculator
         fields = ['id', 'name', 'data', 'created_at']
+
 
 
 
