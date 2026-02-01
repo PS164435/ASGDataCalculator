@@ -81,17 +81,18 @@ class LoginSerializer(serializers.Serializer):
                 "password": "Błędne hasło"
             })
 
-        refresh - RefreshToken.for_user(user)
+        refresh = RefreshToken.for_user(user)
 
         return {
             "access": str(refresh.access_token),
-            "access": str(refresh),
+            "refresh": str(refresh),
         }
         
 class SavedCalculatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavedCalculator
         fields = ['id', 'name', 'data', 'created_at']
+
 
 
 
