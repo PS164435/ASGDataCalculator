@@ -50,8 +50,13 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 class LoginSerializer(TokenObtainPairSerializer):
-    username = serializers.CharField(required=True)
-    password = serializers.CharField(required=True, write_only=True)
+    username = serializers.CharField(required=True, error_messages={
+        "blank": "Nazwa nie może być pusta",  
+        "required": "Błąd przesłania danych [username]", 
+    })
+    password = serializers.CharField(write_only=True, required=True, error_messages={
+        "blank": "Hasło nie może być puste",
+        "required": "Błąd przesłania danych [password]",
 
     def validate(self, attrs):
         username = attrs.get('username')
@@ -59,12 +64,12 @@ class LoginSerializer(TokenObtainPairSerializer):
 
         if not username:
             raise serializers.ValidationError({
-                "username": "Email nie może być pusty"
+                "username": "Email nie może być pusty1"
             })
 
         if not password:
             raise serializers.ValidationError({
-                "password": "Hasło nie może być puste"
+                "password": "Hasło nie może być puste1"
             })
 
         try:
@@ -91,6 +96,7 @@ class SavedCalculatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavedCalculator
         fields = ['id', 'name', 'data', 'created_at']
+
 
 
 
