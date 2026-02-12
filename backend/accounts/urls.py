@@ -5,7 +5,7 @@ from rest_framework_simplejwt.views import (TokenRefreshView)
 
 router = DefaultRouter()
 router.register('calculators', SavedCalculatorViewSet, basename='calculator')
-router.register('users', UserViewSet, basename='users')
+router.register('users', UsersViewSet, basename='users')
 router.register('savedCalculators', SavedCalculatorsViewSet, basename='savedCalculators')
 
 urlpatterns = [
@@ -15,4 +15,5 @@ urlpatterns = [
     path('name/', NameView.as_view(), name='name'),
     path('', include(router.urls)),
 ]
+
 
