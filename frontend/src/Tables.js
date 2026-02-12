@@ -5,30 +5,34 @@ function Tables() {
     const [replicas, setReplicas] = useState([]);
     const [attachments, setAttachments] = useState([]);
     const [ammunition, setAmmunition] = useState([]);
+    const [users, setUsers = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     const fetchData = async () => {
         try {
-            const [replicasRes, attachmentsRes, ammunitionRes] = await Promise.all([
+            const [replicasRes, attachmentsRes, ammunitionRes, usersRes] = await Promise.all([
                 fetch(`${API_URL}/api/replicas/`),
                 fetch(`${API_URL}/api/attachments/`),
                 fetch(`${API_URL}/api/ammunition/`),
+                fetch(`${API_URL}/api/users/`),
             ]);
 
-            if (!replicasRes.ok || !attachmentsRes.ok || !ammunitionRes.ok) {
+            if (!replicasRes.ok || !attachmentsRes.ok || !ammunitionRes.ok || !usersRes.ok) {
                 throw new Error("API connection Error");
             }
 
-            const [replicasData, attachmentsData, ammunitionData] = await Promise.all([
+            const [replicasData, attachmentsData, ammunitionData, usersData] = await Promise.all([
                 replicasRes.json(),
                 attachmentsRes.json(),
                 ammunitionRes.json(),
+                usersRes.json(),
             ]);
 
             setReplicas(replicasData);
             setAttachments(attachmentsData);
             setAmmunition(ammunitionData);
+            setUsers(ammunitionData);
             setLoading(false);
         } catch (err) {
             console.error("Error:", err);
@@ -134,8 +138,32 @@ function Tables() {
                     </tbody>
                 </table>
             )}
+
+            <h2>Konta</h2>
+            {replicas.length === 0 ? (
+                <p>Brak danych.</p>
+            ) : (
+                <table border="1" cellPadding="10" style={{borderCollapse: "collapse", marginBottom: "2rem"}}>
+                    <thead>
+                    <tr>
+                        <th>Nazwa</th>
+                        <th>Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {users.map((r) => (
+                        <tr key={r.id}>
+                            <td>{r.first_name}</td>
+                            <td>{r.email}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            )}
+
         </div>
     );
 }
+
 
 export default Tables;
