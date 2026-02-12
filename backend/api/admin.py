@@ -17,7 +17,7 @@ class AttachmentAdmin(admin.ModelAdmin):
     ordering = ('name',)
 
     def get_compatibility(self, obj):
-        return ", ".join([replica.name for replica in obj.compatibility.add()])
+        return ", ".join([replica.name for replica in obj.compatibility.all()])
     get_compatibility.short_description = 'Compatibility'
 
 @admin.register(Ammunition)
@@ -25,4 +25,5 @@ class AmmunitionAdmin(admin.ModelAdmin):
     list_display = ('name', 'company', 'weight', 'amount', 'biodegradable', 'glowing',)
     list_filter = ('company', 'weight', 'biodegradable', 'glowing',)
     search_fields = ('name',)
+
     ordering = ('name',)
