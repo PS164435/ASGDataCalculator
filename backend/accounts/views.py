@@ -3,8 +3,9 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import viewsets
 from .models import SavedCalculator
-from .serializers import RegisterSerializer, SavedCalculatorSerializer, LoginSerializer, UserSerializer
+from .serializers import RegisterSerializer, SavedCalculatorSerializer, LoginSerializer, UserSerializer ,SavedCalculatorsSerializer, UsersSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.models import User
 
@@ -49,7 +50,7 @@ class NameView(APIView):
         })
 
 class UsersViewSet(viewsets.ModelViewSet):
-    queryset = Users.objects.all().order_by('email')
+    queryset = User.objects.all().order_by('email')
     serializer_class = UsersSerializer
 
     def get_permissions(self):
@@ -58,13 +59,14 @@ class UsersViewSet(viewsets.ModelViewSet):
         return [IsAuthenticated()]
 
 class SavedCalculatorsViewSet(viewsets.ModelViewSet):
-    queryset = SavedCalculators.objects.all().order_by('id')
+    queryset = SavedCalculator.objects.all().order_by('id')
     serializer_class = SavedCalculatorsSerializer
 
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
             return [AllowAny()]
         return [IsAuthenticated()]
+
 
 
 
