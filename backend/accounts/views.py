@@ -49,8 +49,8 @@ class NameView(APIView):
         })
 
 class UsersViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all().order_by('name')
-    serializer_class = UserSerializer
+    queryset = Users.objects.all().order_by('email')
+    serializer_class = UsersSerializer
 
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
@@ -58,13 +58,14 @@ class UsersViewSet(viewsets.ModelViewSet):
         return [IsAuthenticated()]
 
 class SavedCalculatorsViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all().order_by('name')
-    serializer_class = UserSerializer
+    queryset = SavedCalculators.objects.all().order_by('id')
+    serializer_class = SavedCalculatorsSerializer
 
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
             return [AllowAny()]
         return [IsAuthenticated()]
+
 
 
 
