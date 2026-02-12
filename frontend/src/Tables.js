@@ -6,7 +6,7 @@ function Tables() {
     const [replicas, setReplicas] = useState([]);
     const [attachments, setAttachments] = useState([]);
     const [ammunition, setAmmunition] = useState([]);
-    const [users, setUsers = useState([]);
+    const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -16,7 +16,7 @@ function Tables() {
                 fetch(`${API_URL}/api/replicas/`),
                 fetch(`${API_URL}/api/attachments/`),
                 fetch(`${API_URL}/api/ammunition/`),
-                fetch(`${API_URL}/api/users/`),
+                fetch(`${API_URL}/accounts/users/`),
             ]);
 
             if (!replicasRes.ok || !attachmentsRes.ok || !ammunitionRes.ok || !usersRes.ok) {
@@ -33,7 +33,7 @@ function Tables() {
             setReplicas(replicasData);
             setAttachments(attachmentsData);
             setAmmunition(ammunitionData);
-            setUsers(ammunitionData);
+            setUsers(usersData);
             setLoading(false);
         } catch (err) {
             console.error("Error:", err);
@@ -141,7 +141,7 @@ function Tables() {
             )}
 
             <h2>Konta</h2>
-            {replicas.length === 0 ? (
+            {users.length === 0 ? (
                 <p>Brak danych.</p>
             ) : (
                 <table border="1" cellPadding="10" style={{borderCollapse: "collapse", marginBottom: "2rem"}}>
@@ -168,4 +168,5 @@ function Tables() {
 
 
 export default Tables;
+
 
