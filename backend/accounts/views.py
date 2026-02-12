@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import viewsets
 from .models import SavedCalculator
-from .serializers import RegisterSerializer, SavedCalculatorSerializer, LoginSerializer, UserSerializer ,SavedCalculatorsSerializer, UsersSerializer
+from .serializers import RegisterSerializer, SavedCalculatorSerializer, LoginSerializer, SavedCalculatorsSerializer, UsersSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.models import User
 
@@ -66,6 +66,7 @@ class SavedCalculatorsViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve']:
             return [AllowAny()]
         return [IsAuthenticated()]
+
 
 
 
