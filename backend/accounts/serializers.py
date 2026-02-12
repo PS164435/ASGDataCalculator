@@ -93,6 +93,12 @@ class SavedCalculatorSerializer(serializers.ModelSerializer):
         model = SavedCalculator
         fields = ['id', 'name', 'data', 'created_at']
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['first_name', 'email', 'is_staff', 'is_superuser']
+
+
 
 
 
