@@ -99,9 +99,11 @@ class UsersSerializer(serializers.ModelSerializer):
         fields = ['first_name', 'email', 'is_staff', 'is_superuser']
 
 class SavedCalculatorsSerializer(serializers.ModelSerializer):
+    user_email = serializers.EmailField(source='user.email')
     class Meta:
         model = SavedCalculator
         fields = ['id', 'user_email', 'name', 'created_at']
+
 
 
 
