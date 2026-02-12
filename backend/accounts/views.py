@@ -48,7 +48,7 @@ class NameView(APIView):
             "first_name": request.user.first_name,
         })
 
-class UserViewSet(viewsets.ModelViewSet):
+class UsersViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('name')
     serializer_class = UserSerializer
 
@@ -57,7 +57,7 @@ class UserViewSet(viewsets.ModelViewSet):
             return [AllowAny()]
         return [IsAuthenticated()]
 
-class SavedCalculatorViewSet(viewsets.ModelViewSet):
+class SavedCalculatorsViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('name')
     serializer_class = UserSerializer
 
@@ -65,6 +65,7 @@ class SavedCalculatorViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve']:
             return [AllowAny()]
         return [IsAuthenticated()]
+
 
 
 
