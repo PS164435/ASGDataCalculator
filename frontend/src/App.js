@@ -37,7 +37,7 @@ function App() {
                 return;
             }
             const data = await res.json();
-            setUserName(data.first_name);\
+            setUserName(data.first_name);
             setIsAdmin(data.is_superuser);
         } catch (err) {
             alert("Błąd pobierania nazwy")
