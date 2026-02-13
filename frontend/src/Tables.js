@@ -183,7 +183,7 @@ function Tables() {
                     </tr>
                     </thead>
                     <tbody>
-                    {users.map((r) => (
+                    {savedCalculators.map((r) => (
                         <tr key={r.id}>
                             <td>{r.id}</td>
                             <td>{r.user_email}</td>
@@ -201,6 +201,7 @@ function Tables() {
 
 
 export default Tables;
+
 
 
 
