@@ -6,33 +6,37 @@ function Tables() {
     const [attachments, setAttachments] = useState([]);
     const [ammunition, setAmmunition] = useState([]);
     const [users, setUsers] = useState([]);
+    const [savedCalculators, setSavedCalculators = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     const fetchData = async () => {
         try {
-            const [replicasRes, attachmentsRes, ammunitionRes, usersRes] = await Promise.all([
+            const [replicasRes, attachmentsRes, ammunitionRes, usersRes, savedCalculatorsRes] = await Promise.all([
                 fetch(`${API_URL}/api/replicas/`),
                 fetch(`${API_URL}/api/attachments/`),
                 fetch(`${API_URL}/api/ammunition/`),
                 fetch(`${API_URL}/accounts/users/`),
+                fetch(`${API_URL}/accounts/savedCalculators/`),
             ]);
 
-            if (!replicasRes.ok || !attachmentsRes.ok || !ammunitionRes.ok || !usersRes.ok) {
+            if (!replicasRes.ok || !attachmentsRes.ok || !ammunitionRes.ok || !usersRes.ok || !savedCalculatorsRes.ok) {
                 throw new Error("API connection Error");
             }
 
-            const [replicasData, attachmentsData, ammunitionData, usersData] = await Promise.all([
+            const [replicasData, attachmentsData, ammunitionData, usersData, savedCalculatorsData] = await Promise.all([
                 replicasRes.json(),
                 attachmentsRes.json(),
                 ammunitionRes.json(),
                 usersRes.json(),
+                savedCalculatorsRes.json(),
             ]);
 
             setReplicas(replicasData);
             setAttachments(attachmentsData);
             setAmmunition(ammunitionData);
             setUsers(usersData);
+            setSavedCalculators(savedCalculatorsData);
             setLoading(false);
         } catch (err) {
             console.error("Error:", err);
@@ -161,12 +165,36 @@ function Tables() {
                 </table>
             )}
 
+            <h2>Zapisane kalkulatory</h2>
+            {savedCalculators.length === 0 ? (
+                <p>Brak danych.</p>
+            ) : (
+                <table border="1" cellPadding="10" style={{borderCollapse: "collapse", marginBottom: "2rem"}}>
+                    <thead>
+                    <tr>
+                        <th>Nazwa</th>
+                        <th>Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {users.map((r) => (
+                        <tr key={r.id}>
+                            <td>{r.name}</td>
+                            <td>{r.user}</td>
+                            <td>{r.created_at}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            )}
+
         </div>
     );
 }
 
 
 export default Tables;
+
 
 
 
