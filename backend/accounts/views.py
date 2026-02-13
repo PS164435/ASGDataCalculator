@@ -48,6 +48,8 @@ class NameView(APIView):
             "username": request.user.username,
             "email": request.user.email,
             "first_name": request.user.first_name,
+            "is_staff": request.user.is_staff,
+            "is_superuser": request.user.is_superuser,
         })
 
 class UsersViewSet(viewsets.ModelViewSet):
@@ -59,6 +61,7 @@ class SavedCalculatorsViewSet(viewsets.ModelViewSet):
     queryset = SavedCalculator.objects.all().order_by('id')
     serializer_class = SavedCalculatorsSerializer
     permission_classes = [IsAdminUser]
+
 
 
 
