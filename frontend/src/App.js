@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {Routes, Route, Link} from "react-router-dom";
 import Tables from "./Tables";
+import Tables from "./AdminOptions";
 import Calculator from "./Calculator";
 import './main.css';
 import Login from "./Login";
@@ -48,6 +49,8 @@ function App() {
   return (
     <div>
       <nav>
+
+        <Link to="/adminOptions">Opcje Admina</Link>
         <Link to="/tables">Baza Danych</Link>
         <Link to="/calculator">Kalkulator</Link>
 
@@ -67,6 +70,7 @@ function App() {
 
       </nav>
       <Routes>
+        <Route path="/adminOptions" element={<AdminOptions/>}/>
         <Route path="/tables" element={<Tables/>}/>
         <Route path="/calculator" element={<Calculator/>}/>
 
