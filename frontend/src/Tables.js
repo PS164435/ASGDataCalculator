@@ -153,7 +153,7 @@ function Tables() {
                     </thead>
                     <tbody>
                     {users.map((r) => (
-                        <tr>
+                        <tr key={r.id}>
                             <td>{r.first_name}</td>
                             <td>{r.email}</td>
                         </tr>
@@ -168,6 +168,7 @@ function Tables() {
 
 
 export default Tables;
+
 
 
 
