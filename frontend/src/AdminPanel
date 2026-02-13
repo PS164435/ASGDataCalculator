@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import API_URL from "./api";
 
-function AdminOptions() {
+function AdminPanel() {
     const [users, setUsers] = useState([]);
     const [savedCalculators, setSavedCalculators] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -99,7 +99,7 @@ function AdminOptions() {
 }
 
 
-export default Tables;
+export default AdminPanel;
 
 
 
