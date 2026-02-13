@@ -3,6 +3,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAdminUser
 from rest_framework import viewsets
 from .models import SavedCalculator
 from .serializers import RegisterSerializer, SavedCalculatorSerializer, LoginSerializer, SavedCalculatorsSerializer, UsersSerializer
@@ -52,20 +53,13 @@ class NameView(APIView):
 class UsersViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('email')
     serializer_class = UsersSerializer
-
-    def get_permissions(self):
-        if self.action in ['list', 'retrieve']:
-            return [AllowAny()]
-        return [IsAuthenticated()]
+    permission_classes = [IsAdminUser]
 
 class SavedCalculatorsViewSet(viewsets.ModelViewSet):
     queryset = SavedCalculator.objects.all().order_by('id')
     serializer_class = SavedCalculatorsSerializer
+    permission_classes = [IsAdminUser]
 
-    def get_permissions(self):
-        if self.action in ['list', 'retrieve']:
-            return [AllowAny()]
-        return [IsAuthenticated()]
 
 
 
