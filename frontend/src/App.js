@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {Routes, Route, Link} from "react-router-dom";
 import Tables from "./Tables";
-import Tables from "./AdminOptions";
+import AdminPanel from "./AdminPanel";
 import Calculator from "./Calculator";
 import './main.css';
 import Login from "./Login";
@@ -12,12 +12,14 @@ function App() {
 
     const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("access"));
     const [userName, setUserName] = useState(null);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const logout = useCallback(() => {
         localStorage.removeItem("access");
         localStorage.removeItem("refresh");
         setLoggedIn(false)
         setUserName(null);
+        setIsAdmin(false)
     }, []);
 
     const myName = useCallback(async () => {
@@ -35,7 +37,8 @@ function App() {
                 return;
             }
             const data = await res.json();
-            setUserName(data.first_name);
+            setUserName(data.first_name);\
+            setIsAdmin(data.is_superuser);
         } catch (err) {
             alert("Błąd pobierania nazwy")
         }
@@ -50,7 +53,7 @@ function App() {
     <div>
       <nav>
 
-        <Link to="/adminOptions">Opcje Admina</Link>
+        {loggedIn && isAdmin && (<Link to="/adminPanel">Opcje Admina</Link>)}
         <Link to="/tables">Baza Danych</Link>
         <Link to="/calculator">Kalkulator</Link>
 
@@ -70,7 +73,7 @@ function App() {
 
       </nav>
       <Routes>
-        <Route path="/adminOptions" element={<AdminOptions/>}/>
+        {loggedIn && isAdmin && (<Route path="/adminPanel" element={<AdminPanel/>}/>)}
         <Route path="/tables" element={<Tables/>}/>
         <Route path="/calculator" element={<Calculator/>}/>
 
