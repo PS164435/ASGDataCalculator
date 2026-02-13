@@ -161,8 +161,8 @@ function Tables() {
                         <tr key={r.id}>
                             <td>{r.first_name}</td>
                             <td>{r.email}</td>
-                            <td>{r.is_staff}</td>
-                            <td>{r.is_superuser}</td>
+                            <td>{r.is_staff ? "YES" : "NO"}</td>
+                            <td>{r.is_superuser ? "YES" : "NO"}</td>
                         </tr>
                     ))}
                     </tbody>
@@ -201,6 +201,7 @@ function Tables() {
 
 
 export default Tables;
+
 
 
 
