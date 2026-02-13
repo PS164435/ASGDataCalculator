@@ -6,7 +6,7 @@ function Tables() {
     const [attachments, setAttachments] = useState([]);
     const [ammunition, setAmmunition] = useState([]);
     const [users, setUsers] = useState([]);
-    const [savedCalculators, setSavedCalculators = useState([]);
+    const [savedCalculators, setSavedCalculators] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -152,13 +152,17 @@ function Tables() {
                     <tr>
                         <th>Nazwa</th>
                         <th>Email</th>
+                        <th>Staff</th>
+                        <th>Superuser</th>
                     </tr>
                     </thead>
                     <tbody>
                     {users.map((r) => (
-                        <tr key={r.email}>
+                        <tr key={r.id}>
                             <td>{r.first_name}</td>
                             <td>{r.email}</td>
+                            <td>{r.is_staff}</td>
+                            <td>{r.is_superuser}</td>
                         </tr>
                     ))}
                     </tbody>
@@ -172,15 +176,18 @@ function Tables() {
                 <table border="1" cellPadding="10" style={{borderCollapse: "collapse", marginBottom: "2rem"}}>
                     <thead>
                     <tr>
+                        <th>Id</th>
+                        <th>Użytkownik</th>
                         <th>Nazwa</th>
-                        <th>Email</th>
+                        <th>Data Utworzenia</th>
                     </tr>
                     </thead>
                     <tbody>
                     {users.map((r) => (
                         <tr key={r.id}>
+                            <td>{r.id}</td>
+                            <td>{r.user_email}</td>
                             <td>{r.name}</td>
-                            <td>{r.user}</td>
                             <td>{r.created_at}</td>
                         </tr>
                     ))}
@@ -194,6 +201,7 @@ function Tables() {
 
 
 export default Tables;
+
 
 
 
