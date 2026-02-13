@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import API_URL from "./api";
-import ACCOUNTS_URL from "./accounts";
 
 function Tables() {
     const [replicas, setReplicas] = useState([]);
@@ -168,6 +167,7 @@ function Tables() {
 
 
 export default Tables;
+
 
 
 
