@@ -14,21 +14,22 @@ function AdminPanel() {
             setError("Odmowa dostępu);
             setLoading(false);
             return;
+        }
             
         try {
             const [usersRes, savedCalculatorsRes] = await Promise.all([
                 fetch(`${API_URL}/accounts/users/`, {
-                    header: {Authorization: `Bearer ${token}`, }, }),
+                    headers: {Authorization: `Bearer ${token}`, }, }),
                 fetch(`${API_URL}/accounts/savedCalculators/`, {
-                    header: {Authorization: `Bearer ${token}`, }, }),
+                    headers: {Authorization: `Bearer ${token}`, }, }),
             ]);
 
             if (!usersRes.ok || !savedCalculatorsRes.ok) {
                 throw new Error("Błąd danych");
             }
 
-            const usersData = await userRes.json();
-            const savedCalculatorsData = savedCalculatorsRes.json();
+            const usersData = await usersRes.json();
+            const savedCalculatorsData = await savedCalculatorsRes.json();
             
             setUsers(usersData);
             setSavedCalculators(savedCalculatorsData);
