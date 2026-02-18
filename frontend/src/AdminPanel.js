@@ -8,26 +8,35 @@ function AdminPanel() {
     const [error, setError] = useState(null);
 
     const fetchData = async () => {
+        const token = localStorage.getItem("access");
+
+        if (!token) {
+            setError("Odmowa dostępu);
+            setLoading(false);
+            return;
+            
         try {
             const [usersRes, savedCalculatorsRes] = await Promise.all([
-                fetch(`${API_URL}/accounts/users/`),
-                fetch(`${API_URL}/accounts/savedCalculators/`),
+                fetch(`${API_URL}/accounts/users/`, {
+                    header: {Authorization: `Bearer ${token}`, }, }),
+                fetch(`${API_URL}/accounts/savedCalculators/`, {
+                    header: {Authorization: `Bearer ${token}`, }, }),
             ]);
 
             if (!usersRes.ok || !savedCalculatorsRes.ok) {
-                throw new Error("API connection Error");
+                throw new Error("Błąd danych");
             }
 
-            const [usersData, savedCalculatorsData] = await Promise.all([
-                usersRes.json(),
-                savedCalculatorsRes.json(),
-            ]);
+            const usersData = await userRes.json();
+            const savedCalculatorsData = savedCalculatorsRes.json();
+            
             setUsers(usersData);
             setSavedCalculators(savedCalculatorsData);
             setLoading(false);
+            
         } catch (err) {
             console.error("Error:", err);
-            setError(err.message);
+            setError("Brak dostępu do panelu admina");
             setLoading(false);
         }
     };
@@ -42,6 +51,7 @@ function AdminPanel() {
     return (
         <div>
             <h1>Panel Admina</h1>
+        
                 <h2>Konta</h2>
                 {users.length === 0 ? (
                     <p>Brak danych.</p>
