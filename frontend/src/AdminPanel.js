@@ -41,58 +41,58 @@ function AdminPanel() {
 
     return (
         <div>
-      
-            <h2>Konta</h2>
-            {users.length === 0 ? (
-                <p>Brak danych.</p>
-            ) : (
-                <table border="1" cellPadding="10" style={{borderCollapse: "collapse", marginBottom: "2rem"}}>
-                    <thead>
-                    <tr>
-                        <th>Nazwa</th>
-                        <th>Email</th>
-                        <th>Staff</th>
-                        <th>Superuser</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {users.map((r) => (
-                        <tr key={r.id}>
-                            <td>{r.first_name}</td>
-                            <td>{r.email}</td>
-                            <td>{r.is_staff ? "YES" : "NO"}</td>
-                            <td>{r.is_superuser ? "YES" : "NO"}</td>
+            <h1>Panel Admina</h1>
+                <h2>Konta</h2>
+                {users.length === 0 ? (
+                    <p>Brak danych.</p>
+                ) : (
+                    <table border="1" cellPadding="10" style={{borderCollapse: "collapse", marginBottom: "2rem"}}>
+                        <thead>
+                        <tr>
+                            <th>Nazwa</th>
+                            <th>Email</th>
+                            <th>Staff</th>
+                            <th>Superuser</th>
                         </tr>
-                    ))}
-                    </tbody>
-                </table>
-            )}
-
-            <h2>Zapisane kalkulatory</h2>
-            {savedCalculators.length === 0 ? (
-                <p>Brak danych.</p>
-            ) : (
-                <table border="1" cellPadding="10" style={{borderCollapse: "collapse", marginBottom: "2rem"}}>
-                    <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Użytkownik</th>
-                        <th>Nazwa</th>
-                        <th>Data Utworzenia</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {savedCalculators.map((r) => (
-                        <tr key={r.id}>
-                            <td>{r.id}</td>
-                            <td>{r.user_email}</td>
-                            <td>{r.name}</td>
-                            <td>{r.created_at}</td>
+                        </thead>
+                        <tbody>
+                        {users.map((r) => (
+                            <tr key={r.id}>
+                                <td>{r.first_name}</td>
+                                <td>{r.email}</td>
+                                <td>{r.is_staff ? "YES" : "NO"}</td>
+                                <td>{r.is_superuser ? "YES" : "NO"}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                )}
+    
+                <h2>Zapisane kalkulatory</h2>
+                {savedCalculators.length === 0 ? (
+                    <p>Brak danych.</p>
+                ) : (
+                    <table border="1" cellPadding="10" style={{borderCollapse: "collapse", marginBottom: "2rem"}}>
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Użytkownik</th>
+                            <th>Nazwa</th>
+                            <th>Data Utworzenia</th>
                         </tr>
-                    ))}
-                    </tbody>
-                </table>
-            )}
+                        </thead>
+                        <tbody>
+                        {savedCalculators.map((r) => (
+                            <tr key={r.id}>
+                                <td>{r.id}</td>
+                                <td>{r.user_email}</td>
+                                <td>{r.name}</td>
+                                <td>{r.created_at}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                )}
 
         </div>
     );
