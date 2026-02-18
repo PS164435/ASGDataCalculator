@@ -7,6 +7,40 @@ function AdminPanel() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const deleteUser = async (id) => {
+        const token = localStorage.getItem("access");
+        if (!window.confirm("Czy na pewno?")) return;
+
+        try {
+            const res = await ferch(`${API_URL}/accounts/users/${id}/`, {
+                method: "DELETE",
+                headers: {Authorization: `Bearer ${token}`,},
+            };
+            if (!res.ok) throw new Error();
+
+            setUsers (prev => prev.filter(i => i.id !== id));
+        } catch {
+            alert("Błąd usuwania");
+        }
+    };
+
+    const deleteCalculator = async (id) => {
+        const token = localStorage.getItem("access");
+        if (!window.confirm("Czy na pewno?")) return;
+
+        try {
+            const res = await ferch(`${API_URL}/accounts/savedCalculators/${id}/`, {
+                method: "DELETE",
+                headers: {Authorization: `Bearer ${token}`,},
+            };
+            if (!res.ok) throw new Error();
+
+            setSavedCalculators(prev => prev.filter(i => i.id !== id));
+        } catch {
+            alert("Błąd usuwania");
+        }
+    };
+
     const fetchData = async () => {
         const token = localStorage.getItem("access");
 
