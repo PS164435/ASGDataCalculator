@@ -12,10 +12,10 @@ function AdminPanel() {
         if (!window.confirm("Czy na pewno?")) return;
 
         try {
-            const res = await ferch(`${API_URL}/accounts/users/${id}/`, {
+            const res = await fetch(`${API_URL}/accounts/users/${id}/`, {
                 method: "DELETE",
                 headers: {Authorization: `Bearer ${token}`,},
-            };
+            });
             if (!res.ok) throw new Error();
 
             setUsers (prev => prev.filter(i => i.id !== id));
@@ -29,10 +29,10 @@ function AdminPanel() {
         if (!window.confirm("Czy na pewno?")) return;
 
         try {
-            const res = await ferch(`${API_URL}/accounts/savedCalculators/${id}/`, {
+            const res = await fetch(`${API_URL}/accounts/savedCalculators/${id}/`, {
                 method: "DELETE",
                 headers: {Authorization: `Bearer ${token}`,},
-            };
+            });
             if (!res.ok) throw new Error();
 
             setSavedCalculators(prev => prev.filter(i => i.id !== id));
@@ -98,6 +98,7 @@ function AdminPanel() {
                             <th>Email</th>
                             <th>Staff</th>
                             <th>Superuser</th>
+                            <th>Usuń</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -107,6 +108,7 @@ function AdminPanel() {
                                 <td>{r.email}</td>
                                 <td>{r.is_staff ? "YES" : "NO"}</td>
                                 <td>{r.is_superuser ? "YES" : "NO"}</td>
+                                <td><button onClick={() => deleteUser(r.id)}>Usuń</button></td>
                             </tr>
                         ))}
                         </tbody>
@@ -124,6 +126,7 @@ function AdminPanel() {
                             <th>Użytkownik</th>
                             <th>Nazwa</th>
                             <th>Data Utworzenia</th>
+                            <th>Usuń</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -133,6 +136,7 @@ function AdminPanel() {
                                 <td>{r.user_email}</td>
                                 <td>{r.name}</td>
                                 <td>{r.created_at}</td>
+                                <td><button onClick={() => deleteCalculator(r.id)}>Usuń</button></td>
                             </tr>
                         ))}
                         </tbody>
