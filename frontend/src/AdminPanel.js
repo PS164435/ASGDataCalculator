@@ -11,7 +11,7 @@ function AdminPanel() {
         const token = localStorage.getItem("access");
 
         if (!token) {
-            setError("Odmowa dostępu);
+            setError("Odmowa dostępu");
             setLoading(false);
             return;
         }
