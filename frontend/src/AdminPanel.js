@@ -7,18 +7,18 @@ function AdminPanel() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const deleteUser = async (email) => {
+    const deleteUser = async (id) => {
         const token = localStorage.getItem("access");
         if (!window.confirm("Czy na pewno?")) return;
 
         try {
-            const res = await fetch(`${API_URL}/accounts/users/${email}/`, {
+            const res = await fetch(`${API_URL}/accounts/users/${id}/`, {
                 method: "DELETE",
                 headers: {Authorization: `Bearer ${token}`,},
             });
             if (!res.ok) throw new Error();
 
-            setUsers (prev => prev.filter(i => i.email !== email));
+            setUsers (prev => prev.filter(i => i.id !== id));
         } catch (err) {
             alert("Błąd usuwania: " + err.message);
         }
@@ -108,7 +108,7 @@ function AdminPanel() {
                                 <td>{r.email}</td>
                                 <td>{r.is_staff ? "YES" : "NO"}</td>
                                 <td>{r.is_superuser ? "YES" : "NO"}</td>
-                                <td><button onClick={() => deleteUser(r.email)}>Usuń</button></td>
+                                <td><button onClick={() => deleteUser(r.id)}>Usuń</button></td>
                             </tr>
                         ))}
                         </tbody>
