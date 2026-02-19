@@ -108,7 +108,7 @@ function AdminPanel() {
                                 <td>{r.email}</td>
                                 <td>{r.is_staff ? "YES" : "NO"}</td>
                                 <td>{r.is_superuser ? "YES" : "NO"}</td>
-                                <td><button onClick={() => deleteUser(r.id)}>Usuń</button></td>
+                                <td><button onClick={() => deleteUser(r.email)}>Usuń</button></td>
                             </tr>
                         ))}
                         </tbody>
