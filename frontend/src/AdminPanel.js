@@ -19,7 +19,7 @@ function AdminPanel() {
             if (!res.ok) throw new Error();
 
             setUsers (prev => prev.filter(i => i.email !== email));
-        } catch {
+        } catch (err) {
             alert("Błąd usuwania: " + err.message);
         }
     };
@@ -36,7 +36,7 @@ function AdminPanel() {
             if (!res.ok) throw new Error();
 
             setSavedCalculators(prev => prev.filter(i => i.id !== id));
-        } catch {
+        } catch (err) {
             alert("Błąd usuwania: " + err.message);
         }
     };
