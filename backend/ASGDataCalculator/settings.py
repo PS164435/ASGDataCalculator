@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME")
 ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD")
+ADMIN_FIRST_NAME = os.environ.get("ADMIN_FIRST_NAME")
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -134,6 +135,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 
 
