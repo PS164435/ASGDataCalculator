@@ -7,12 +7,12 @@ function AdminPanel() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const deleteUser = async (id) => {
+    const deleteUser = async (email) => {
         const token = localStorage.getItem("access");
         if (!window.confirm("Czy na pewno?")) return;
 
         try {
-            const res = await fetch(`${API_URL}/accounts/users/${id}/`, {
+            const res = await fetch(`${API_URL}/accounts/users/${email}/`, {
                 method: "DELETE",
                 headers: {Authorization: `Bearer ${token}`,},
             });
