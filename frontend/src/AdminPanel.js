@@ -18,7 +18,7 @@ function AdminPanel() {
             });
             if (!res.ok) throw new Error();
 
-            setUsers (prev => prev.filter(i => i.id !== id));
+            setUsers (prev => prev.filter(i => i.email !== email));
         } catch {
             alert("Błąd usuwania: " + err.message);
         }
