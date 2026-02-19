@@ -11,6 +11,7 @@ class AccountsConfig(AppConfig):
         username = settings.ADMIN_USERNAME
         email = settings.ADMIN_EMAIL
         password = settings.ADMIN_PASSWORD
+        first_name = getattr(settings, "ADMIN_FIRST_NAME", "")
     
         if not username or not password:
             return
@@ -19,8 +20,10 @@ class AccountsConfig(AppConfig):
             User.objects.create_superuser(
                 username=username,
                 email=email,
-                password=password
+                password=password,
+                first_name=first_name,
             )
+
 
 
 
