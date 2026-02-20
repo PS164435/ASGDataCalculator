@@ -7,6 +7,9 @@ function AdminPanel() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const [userToEdit, setUserToEdit] = useState(null);
+    const [showAccountEditWindow, setShowAccountEditWindow] = useState(false);
+
     const deleteUser = async (id) => {
         const token = localStorage.getItem("access");
         if (!window.confirm("Czy na pewno?")) return;
@@ -136,6 +139,7 @@ function AdminPanel() {
                                 <td>{r.user_email}</td>
                                 <td>{r.name}</td>
                                 <td>{r.created_at}</td>
+                                <td><button onClick={() => deleteCalculator(r.id)}>Usuń</button></td>
                                 <td><button onClick={() => deleteCalculator(r.id)}>Usuń</button></td>
                             </tr>
                         ))}
