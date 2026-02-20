@@ -10,6 +10,33 @@ function AdminPanel() {
     const [userToEdit, setUserToEdit] = useState(null);
     const [showAccountEditWindow, setShowAccountEditWindow] = useState(false);
 
+    const editUser = async () => {
+        const token = localStorage.getItem("access");
+
+        try {
+            const res = await fetch(`${API_URL}/accounts/users/${userToEdit.id}/`, {
+                method: "PATCH",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringlify({
+                    first_name: userToEdit.first_name,
+                    is_staff: userToEdit.is_staff,
+                    is_superuser: userToEdit.is_superuser,
+                    is_active: userToEdit.is_active,
+                }),
+            });
+        
+            if (!res.ok) throw new Error();
+
+            setUsers (prev => prev.filter(i => i.id !== id));
+        } catch (err) {
+            alert("Błąd usuwania: " + err.message);
+        }
+        
+    }
+
     const deleteUser = async (id) => {
         const token = localStorage.getItem("access");
         if (!window.confirm("Czy na pewno?")) return;
