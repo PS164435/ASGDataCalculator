@@ -8,10 +8,11 @@ function AdminPanel() {
     const [error, setError] = useState(null);
 
     const [userToEdit, setUserToEdit] = useState(null);
-    const [showAccountEditWindow, setShowAccountEditWindow] = useState(false);
+    const [showUserEditWindow, setShowUserEditWindow] = useState(false);
 
     const editUser = async () => {
         const token = localStorage.getItem("access");
+        if (!userToEdit) return;
 
         try {
             const res = await fetch(`${API_URL}/accounts/users/${userToEdit.id}/`, {
@@ -20,19 +21,23 @@ function AdminPanel() {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringlify({
+                body: JSON.stringify({
                     first_name: userToEdit.first_name,
                     is_staff: userToEdit.is_staff,
                     is_superuser: userToEdit.is_superuser,
                     is_active: userToEdit.is_active,
                 }),
             });
-        
-            if (!res.ok) throw new Error();
+            if (!res.ok) throw new Error("Błąd edycji");
 
-            setUsers (prev => prev.filter(i => i.id !== id));
+            const newUser = await res.json();
+
+            setUsers (prev => prev.map(u => (u.id === newUser.id ? newUser : u)) );
+
+            setUserToEdit(null);
+            setShowUserEditWindow(false);
         } catch (err) {
-            alert("Błąd usuwania: " + err.message);
+            alert("Błąd edycji: " + err.message);
         }
         
     }
@@ -46,7 +51,7 @@ function AdminPanel() {
                 method: "DELETE",
                 headers: {Authorization: `Bearer ${token}`,},
             });
-            if (!res.ok) throw new Error();
+            if (!res.ok) throw new Error("Błąd usuwania");
 
             setUsers (prev => prev.filter(i => i.id !== id));
         } catch (err) {
@@ -128,6 +133,8 @@ function AdminPanel() {
                             <th>Email</th>
                             <th>Staff</th>
                             <th>Superuser</th>
+                            <th>Aktywne</th>
+                            <th>Edytuj</th>
                             <th>Usuń</th>
                         </tr>
                         </thead>
@@ -138,6 +145,8 @@ function AdminPanel() {
                                 <td>{r.email}</td>
                                 <td>{r.is_staff ? "YES" : "NO"}</td>
                                 <td>{r.is_superuser ? "YES" : "NO"}</td>
+                                <td>{r.is_active ? "YES" : "NO"}</td>
+                                <td><button onClick={() => {setUserToEdit({...r}); setShowUserEditWindow(true);}}>Edytuj</button></td>
                                 <td><button onClick={() => deleteUser(r.id)}>Usuń</button></td>
                             </tr>
                         ))}
@@ -167,11 +176,31 @@ function AdminPanel() {
                                 <td>{r.name}</td>
                                 <td>{r.created_at}</td>
                                 <td><button onClick={() => deleteCalculator(r.id)}>Usuń</button></td>
-                                <td><button onClick={() => deleteCalculator(r.id)}>Usuń</button></td>
                             </tr>
                         ))}
                         </tbody>
                     </table>
+                )}
+
+                {showUserEditWindow && userToEdit && (
+                    <div>
+                        <div>
+                            <h3>Edycja konta</h3>
+                             <label>Nazwa: <input type="text" value={userToEdit.first_name || ""} 
+                                    onChange={(e) => setUserToEdit({...userToEdit, first_name: e.target.value, })}/>nazwa</label>
+                            <label>Staff: <input type="checkbox" checked={userToEdit.is_staff} 
+                                    onChange={(e) => setUserToEdit({...userToEdit, is_staff: e.target.checked, })}/>staff</label>
+                            <label>Superuser: <input type="checkbox" checked={userToEdit.is_superuser} 
+                                    onChange={(e) => setUserToEdit({...userToEdit, is_superuser: e.target.checked, })}/>superuser</label>
+                            <label>Aktywne: <input type="checkbox" checked={userToEdit.is_active} 
+                                    onChange={(e) => setUserToEdit({...userToEdit, is_active: e.target.checked, })}/>aktywne</label>
+                
+                            <div>
+                                    <button onClick={editUser}>Zapisz</button>
+                                    <button onClick={() => {setUserToEdit(null); setShowUserEditWindow(false);}}>X</button>
+                            </div>
+                        </div>
+                    </div>
                 )}
 
         </div>
@@ -179,7 +208,7 @@ function AdminPanel() {
 }
 
 
-export default AdminPanel;
+export default AdminPanel;            
 
 
 
