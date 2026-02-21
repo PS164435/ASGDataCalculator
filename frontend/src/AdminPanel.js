@@ -183,7 +183,7 @@ function AdminPanel() {
                 )}
 
                 {showUserEditWindow && userToEdit && (
-                    <div>
+                    <div className="modal-system">
                         <div>
                             <h3>Edycja konta</h3>
                              <label>Nazwa: <input type="text" value={userToEdit.first_name || ""} 
