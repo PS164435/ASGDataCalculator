@@ -185,8 +185,9 @@ function AdminPanel() {
                 {showUserEditWindow && userToEdit && (
                     <div className="modal-system">
                         <div className="modal-window">
+                        <div className="modal-header">
                             <h3>Edycja konta</h3>
-                             <label>Nazwa: <input type="text" value={userToEdit.first_name || ""} 
+                            <label>Nazwa: <input type="text" value={userToEdit.first_name || ""} 
                                     onChange={(e) => setUserToEdit({...userToEdit, first_name: e.target.value, })}/>nazwa</label>
                             <label>Staff: <input type="checkbox" checked={userToEdit.is_staff} 
                                     onChange={(e) => setUserToEdit({...userToEdit, is_staff: e.target.checked, })}/>staff</label>
@@ -199,6 +200,7 @@ function AdminPanel() {
                                     <button onClick={editUser}>Zapisz</button>
                                     <button onClick={() => {setUserToEdit(null); setShowUserEditWindow(false);}}>X</button>
                             </div>
+                        </div>
                         </div>
                     </div>
                 )}
