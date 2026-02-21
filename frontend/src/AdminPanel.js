@@ -185,7 +185,6 @@ function AdminPanel() {
                 {showUserEditWindow && userToEdit && (
                     <div className="modal-system">
                         <div className="modal-window">
-                        <div>
                             <h3>Edycja konta</h3>
                             <label>Nazwa: <input type="text" value={userToEdit.first_name || ""} 
                                     onChange={(e) => setUserToEdit({...userToEdit, first_name: e.target.value, })}/>nazwa</label>
@@ -200,7 +199,6 @@ function AdminPanel() {
                                     <button onClick={editUser}>Zapisz</button>
                                     <button onClick={() => {setUserToEdit(null); setShowUserEditWindow(false);}}>X</button>
                             </div>
-                        </div>
                         </div>
                     </div>
                 )}
