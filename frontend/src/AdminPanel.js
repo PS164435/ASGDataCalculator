@@ -186,15 +186,16 @@ function AdminPanel() {
                     <div className="modal-system">
                         <div className="modal-window">
                             <h3>Edycja konta</h3>
+                            <div className="modal-content">
                             <label className="modal-content-row">Nazwa: <input type="text" value={userToEdit.first_name || ""} 
-                                    onChange={(e) => setUserToEdit({...userToEdit, first_name: e.target.value, })}/>nazwa</label>
+                                    onChange={(e) => setUserToEdit({...userToEdit, first_name: e.target.value, })}/></label>
                             <label className="modal-content-row">Staff: <input type="checkbox" checked={userToEdit.is_staff} 
-                                    onChange={(e) => setUserToEdit({...userToEdit, is_staff: e.target.checked, })}/>staff</label>
+                                    onChange={(e) => setUserToEdit({...userToEdit, is_staff: e.target.checked, })}/></label>
                             <label className="modal-content-row">Superuser: <input type="checkbox" checked={userToEdit.is_superuser} 
-                                    onChange={(e) => setUserToEdit({...userToEdit, is_superuser: e.target.checked, })}/>superuser</label>
+                                    onChange={(e) => setUserToEdit({...userToEdit, is_superuser: e.target.checked, })}/></label>
                             <label className="modal-content-row">Aktywne: <input type="checkbox" checked={userToEdit.is_active} 
-                                    onChange={(e) => setUserToEdit({...userToEdit, is_active: e.target.checked, })}/>aktywne</label>
-                
+                                    onChange={(e) => setUserToEdit({...userToEdit, is_active: e.target.checked, })}/></label>
+                            </div>
                             <div>
                                     <button onClick={editUser}>Zapisz</button>
                                     <button onClick={() => {setUserToEdit(null); setShowUserEditWindow(false);}}>X</button>
