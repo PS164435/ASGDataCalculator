@@ -168,6 +168,11 @@ nav a:hover{
     gap: 0.4rem;
 }
 
+.modal-user-line{
+    font-size: 12px;
+    font-weight: bolt;
+}
+
 .modal-content-row-calculator{
     padding: 0.3rem;
     background: white;
@@ -196,3 +201,4 @@ nav a:hover{
 }
 
 /* ------- calculator css end -------- */
+
