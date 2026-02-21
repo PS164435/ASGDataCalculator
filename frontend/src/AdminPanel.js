@@ -186,13 +186,13 @@ function AdminPanel() {
                     <div className="modal-system">
                         <div className="modal-window">
                             <h3>Edycja konta</h3>
-                            <label>Nazwa: <input type="text" value={userToEdit.first_name || ""} 
+                            <label className="modal-content-row">Nazwa: <input type="text" value={userToEdit.first_name || ""} 
                                     onChange={(e) => setUserToEdit({...userToEdit, first_name: e.target.value, })}/>nazwa</label>
-                            <label>Staff: <input type="checkbox" checked={userToEdit.is_staff} 
+                            <label className="modal-content-row">Staff: <input type="checkbox" checked={userToEdit.is_staff} 
                                     onChange={(e) => setUserToEdit({...userToEdit, is_staff: e.target.checked, })}/>staff</label>
-                            <label>Superuser: <input type="checkbox" checked={userToEdit.is_superuser} 
+                            <label className="modal-content-row">Superuser: <input type="checkbox" checked={userToEdit.is_superuser} 
                                     onChange={(e) => setUserToEdit({...userToEdit, is_superuser: e.target.checked, })}/>superuser</label>
-                            <label>Aktywne: <input type="checkbox" checked={userToEdit.is_active} 
+                            <label className="modal-content-row">Aktywne: <input type="checkbox" checked={userToEdit.is_active} 
                                     onChange={(e) => setUserToEdit({...userToEdit, is_active: e.target.checked, })}/>aktywne</label>
                 
                             <div>
