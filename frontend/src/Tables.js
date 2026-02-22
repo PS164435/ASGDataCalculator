@@ -41,13 +41,6 @@ function Tables() {
         }
     };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p style={{color: "red"}}>Error {error}</p>;
-
     const cities = {
         Warszawa: { lat:52.23, lon: 21.01 },
         Kraków: { lat:50.06, lon: 19.94 },
@@ -55,8 +48,6 @@ function Tables() {
         Wrocław: { lat:51.11, lon: 17.03 },
         Poznań: { lat:52.40, lon: 16.93 },
     };
-
-    
 
     const fetchWeather = async (cityName) => {
         const {lat,lon} = cities[cityName];
@@ -75,6 +66,13 @@ function Tables() {
     useEffect(() => {
         fetchWeather(selectedCity);
     }, [selectedCity]);
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p style={{color: "red"}}>Error {error}</p>;
+
 
     const getWindArrow = (degree) => { 
         const directions = ["⬆️", "↗️", "➡️", "↘️", "⬇️", "↙️", "⬅️", "↖️"];
@@ -188,7 +186,7 @@ function Tables() {
                             <tr>
                                 <th>Data</th>
                                 <th>Temp Min</th>
-                                <th>Temo Max</th>
+                                <th>Temp Max</th>
                                 <th>Opady (mm)</th>
                                 <th>Wiatr (km/h)</th>
                                 <th>Kierunek</th>
@@ -214,6 +212,7 @@ function Tables() {
 
 
 export default Tables;
+
 
 
 
