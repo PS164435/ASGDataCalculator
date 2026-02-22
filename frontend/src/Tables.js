@@ -44,6 +44,14 @@ function Tables() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p style={{color: "red"}}>Error {error}</p>;
 
+    const cities = {
+        Warszawa: { lat:52.23, lon: 21.01 },
+        Kraków: { lat:20.06, lon: 19.94 },
+        Gdańsk: { lat:54.35, lon: 18.65 },
+        Wrocław: { lat:51.11, lon: 17.03 },
+        Poznań: { lat:52.40, lon: 16.93 },
+    };
+
     return (
         <div>
             <h1>ASG Database</h1>
@@ -140,6 +148,7 @@ function Tables() {
 
 
 export default Tables;
+
 
 
 
