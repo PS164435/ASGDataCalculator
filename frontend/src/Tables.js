@@ -15,7 +15,7 @@ function Tables() {
         Poznań: { lat:52.40, lon: 16.93 },
     };
 
-    const fetchWeather = async (cityName) => {
+    const fetchData = async (cityName) => {
         const {lat,lon} = cities[cityName];
         setLoading(true);
         try {
@@ -86,6 +86,7 @@ function Tables() {
 
 
 export default Tables;
+
 
 
 
