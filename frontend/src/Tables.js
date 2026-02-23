@@ -1,11 +1,9 @@
-import React, {useEffect, useState} from "react";
-import API_URL from "./api";
+import React, {useEffect, useState, useCallback} from "react";
 
 function Tables() {
     const [selectedCity, setSelectedCity] = useState("Warszawa");
     const [weather, setWeather] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     const cities = {
         Warszawa: { lat:52.23, lon: 21.01 },
@@ -15,7 +13,7 @@ function Tables() {
         Poznań: { lat:52.40, lon: 16.93 },
     };
 
-    const fetchWeather = async (cityName) => {
+    const fetchWeather = useCallback(async (cityName) => {
         const {lat,lon} = cities[cityName];
         setLoading(true);
         try {
@@ -27,7 +25,7 @@ function Tables() {
             console.error(err);
         }
         setLoading(false);
-    };
+    }, []);
 
     useEffect(() => {
         fetchWeather(selectedCity);
@@ -83,6 +81,7 @@ function Tables() {
 
 
 export default Tables;
+
 
 
 
