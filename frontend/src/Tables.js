@@ -1,12 +1,25 @@
 import React, {useEffect, useState, useCallback} from "react";
 
-    const cities = {
-        Warszawa: { lat:52.23, lon: 21.01 },
-        Kraków: { lat:50.06, lon: 19.94 },
-        Gdańsk: { lat:54.35, lon: 18.65 },
-        Wrocław: { lat:51.11, lon: 17.03 },
-        Poznań: { lat:52.40, lon: 16.93 },
-    };
+const cities = {
+    Białystok: { lat:53.1333, lon: 23.1643 },
+    Bydgoszcz: { lat:53.1235, lon: 18.0076 },
+    Gdańsk: { lat:54.3523, lon: 18.6491 },
+    Gorzów_Wielkopolski: { lat:52.7368, lon: 15.2288 },
+    Katowice: { lat:50.2584, lon: 19.0275 },
+    Kielce: { lat:50.8703, lon: 20.6275 },
+    Kraków: { lat:50.0614, lon: 19.9366 },
+    Lublin: { lat:51.25, lon: 22.5667 },
+    Łódź: { lat:51.7706, lon: 19.4739 },
+    Olsztyn: { lat:53.7799, lon: 20.4942 },
+    Opole: { lat:50.6721, lon: 17.9253 },
+    Poznań: { lat:52.4069, lon: 16.9299 },
+    Rzeszów: { lat:50.0413, lon: 21.999 },
+    Szczecin: { lat:53.4289, lon: 14.553 },
+    Toruń: { lat:53.0138, lon: 18.5981 },
+    Warszawa: { lat:52.2298, lon: 21.0118 },
+    Wrocław: { lat:51.1, lon: 17.0333 },
+    Zielona_Góra: { lat:51.9355, lon: 15.5064 },
+};    
 
 function Tables() {
     const [selectedCity, setSelectedCity] = useState("Warszawa");
@@ -79,6 +92,7 @@ function Tables() {
 
 
 export default Tables;
+
 
 
 
