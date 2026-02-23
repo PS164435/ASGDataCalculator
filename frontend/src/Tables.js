@@ -26,7 +26,7 @@ function Tables() {
     const [weather, setWeather] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const fetchWeather = useCallback(async (cityName) => {
+    const fetchData = useCallback(async (cityName) => {
         const {lat,lon} = cities[cityName];
         setLoading(true);
         try {
@@ -41,8 +41,8 @@ function Tables() {
     }, []);
 
     useEffect(() => {
-        fetchWeather(selectedCity);
-    }, [selectedCity, fetchWeather]);
+        fetchData(selectedCity);
+    }, [selectedCity, fetchData]);
 
     if (loading) return <p>Loading...</p>;
 
@@ -61,7 +61,7 @@ function Tables() {
             </select>
                 {loading && <p>Loading...</p>}
                 {weather && (
-                    <table border="1" cellPadding="10" style={{marginTop: "1rem" }}>
+                    <table>
                         <thead>
                             <tr>
                                 <th>Data</th>
@@ -92,6 +92,7 @@ function Tables() {
 
 
 export default Tables;
+
 
 
 
