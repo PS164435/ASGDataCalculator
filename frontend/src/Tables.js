@@ -1,10 +1,5 @@
 import React, {useEffect, useState, useCallback} from "react";
 
-function Tables() {
-    const [selectedCity, setSelectedCity] = useState("Warszawa");
-    const [weather, setWeather] = useState(null);
-    const [loading, setLoading] = useState(true);
-
     const cities = {
         Warszawa: { lat:52.23, lon: 21.01 },
         Kraków: { lat:50.06, lon: 19.94 },
@@ -12,6 +7,11 @@ function Tables() {
         Wrocław: { lat:51.11, lon: 17.03 },
         Poznań: { lat:52.40, lon: 16.93 },
     };
+
+function Tables() {
+    const [selectedCity, setSelectedCity] = useState("Warszawa");
+    const [weather, setWeather] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const fetchWeather = useCallback(async (cityName) => {
         const {lat,lon} = cities[cityName];
@@ -29,7 +29,7 @@ function Tables() {
 
     useEffect(() => {
         fetchWeather(selectedCity);
-    }, [selectedCity]);
+    }, [selectedCity, fetchWeather]);
 
     if (loading) return <p>Loading...</p>;
 
