@@ -15,7 +15,7 @@ function Tables() {
         Poznań: { lat:52.40, lon: 16.93 },
     };
 
-    const fetchData = async (cityName) => {
+    const fetchWeather = async (cityName) => {
         const {lat,lon} = cities[cityName];
         setLoading(true);
         try {
@@ -32,9 +32,6 @@ function Tables() {
     useEffect(() => {
         fetchWeather(selectedCity);
     }, [selectedCity]);
-    useEffect(() => {
-        fetchData();
-    }, []);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p style={{color: "red"}}>Error {error}</p>;
@@ -86,6 +83,7 @@ function Tables() {
 
 
 export default Tables;
+
 
 
 
