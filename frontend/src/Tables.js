@@ -17,7 +17,7 @@ function Tables() {
 
     const fetchWeather = async (cityName) => {
         const {lat,lon} = cities[cityName];
-        setLoading2(true);
+        setLoading(true);
         try {
             const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max,winddirection_10m_dominant&timezone=Europe/Warsaw`);
             if (!res.ok) throw new Error("Błąd pobierania danych pogody");
@@ -26,7 +26,7 @@ function Tables() {
         } catch (err) {
             console.error(err);
         }
-        setLoading2(false);
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -53,7 +53,7 @@ function Tables() {
             <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
                 {Object.keys(cities).map((city) => (<option key={city} value={city}>{city}</option>))}
             </select>
-                {loading2 && <p>Loading...</p>}
+                {loading && <p>Loading...</p>}
                 {weather && (
                     <table border="1" cellPadding="10" style={{marginTop: "1rem" }}>
                         <thead>
@@ -86,6 +86,7 @@ function Tables() {
 
 
 export default Tables;
+
 
 
 
