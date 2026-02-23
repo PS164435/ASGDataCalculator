@@ -32,8 +32,6 @@ function Tables() {
     }, [selectedCity]);
 
     if (loading) return <p>Loading...</p>;
-    if (error) return <p style={{color: "red"}}>Error {error}</p>;
-
 
     const getWindArrow = (degree) => { 
         const directions = ["⬆️", "↗️", "➡️", "↘️", "⬇️", "↙️", "⬅️", "↖️"];
@@ -81,6 +79,7 @@ function Tables() {
 
 
 export default Tables;
+
 
 
 
