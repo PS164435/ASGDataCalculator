@@ -88,7 +88,7 @@ class LoginSerializer(serializers.Serializer):
             "refresh": str(refresh),
         }
         
-class SavedCalculatorSerializer(serializers.ModelSerializer):
+class UserSavedCalculatorsSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavedCalculator
         fields = ['id', 'name', 'data', 'created_at']
@@ -98,11 +98,9 @@ class UsersSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'first_name', 'username', 'email', 'is_staff', 'is_superuser', 'is_active']
 
-class SavedCalculatorsSerializer(serializers.ModelSerializer):
+class AdminSavedCalculatorsSerializer(serializers.ModelSerializer):
     user_email = serializers.EmailField(source='user.email')
     user_id = serializers.IntegerField(source='user.id')
     class Meta:
         model = SavedCalculator
         fields = ['id', 'user', 'user_email', 'name', 'created_at', 'user_id']
-
-
