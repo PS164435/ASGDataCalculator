@@ -6,7 +6,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAdminUser
 from rest_framework import viewsets
 from .models import SavedCalculator, UserCounter
-from .serializers import RegisterSerializer, SavedCalculatorSerializer, LoginSerializer, SavedCalculatorsSerializer, UsersSerializer
+from .serializers import RegisterSerializer, UserSavedCalculatorsSerializer, LoginSerializer, AdminSavedCalculatorsSerializer, UsersSerializer
 from django.contrib.auth.models import User
 
 class RegisterView(APIView):
@@ -36,8 +36,8 @@ class LoginView(APIView):
             "refresh": serializer.validated_data["refresh"],
         }, status=200)
 
-class SavedCalculatorViewSet(ModelViewSet):
-    serializer_class = SavedCalculatorSerializer
+class UserSavedCalculatorsViewSet(ModelViewSet):
+    serializer_class = UserSavedCalculatorsSerializer
     permission_classes = [IsAuthenticated]
     def get_queryset(self):
         return SavedCalculator.objects.filter(user=self.request.user)
@@ -63,9 +63,9 @@ class UsersViewSet(viewsets.ModelViewSet):
     serializer_class = UsersSerializer
     permission_classes = [IsAdminUser]
 
-class SavedCalculatorsViewSet(viewsets.ModelViewSet):
+class AdminSavedCalculatorsViewSet(viewsets.ModelViewSet):
     queryset = SavedCalculator.objects.all().order_by('id')
-    serializer_class = SavedCalculatorsSerializer
+    serializer_class = AdminSavedCalculatorsSerializer
     permission_classes = [IsAdminUser]
 
 class UserReportView(APIView):
@@ -91,8 +91,3 @@ class AdminReportView(APIView):
                 "calculator_amount": counter.calculator_amount
             })
         return Response(data)
-
-
-
-
-
