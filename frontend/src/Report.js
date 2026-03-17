@@ -3,6 +3,17 @@ import API_URL from "./api";
 
 function Report() {
   const [report, setReport] = useState(null);
+  const [calculatorsAmount, setCalculatorsAmount] = useState(0);
+
+  const countCalculators = async () => {
+        const token = localStorage.getItem("access");
+        if (!token) return;
+        const res = await fetch(`${API_URL}/accounts/calculators/`, {
+            headers: {Authorization: `Bearer ${token}`,},});
+        if (!res.ok) {alert("Nie udało się pobrać zapisów"); return;}
+        const data = await res.json();
+        setCalculatorsAmount(data.length);
+    };
   
   const fetchData = async () => {
       const token = localStorage.getItem("access");
@@ -13,6 +24,7 @@ function Report() {
     }
   useEffect(() => {
     fetchData();
+    countCalculators();
   }, []);
 
   if (!report) return <p>Loading...</p>;
@@ -21,7 +33,7 @@ function Report() {
       <div>
         <h1>Raport</h1>
         <p>Liczba logowań: {report.login_amount}</p>
-        <p>Liczba utworzonych kalkulatorów: {report.calculator_amount}</p>
+        <p>Liczba zapisanych kalkulatorów: {calculatorsAmount}</p>
       </div>
     )
 }
