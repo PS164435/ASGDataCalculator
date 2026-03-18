@@ -179,7 +179,7 @@ function CalculatorRow({index, data, onRemove, disableRemove, onDuplicate, moveU
     const saveCalculator = async () => {
         const token = localStorage.getItem("access");
         try {
-            const res = await fetch(`${API_URL}/accounts/UserSavedCalculatorsViewSet/`, {
+            const res = await fetch(`${API_URL}/accounts/userSavedCalculators/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -297,7 +297,7 @@ export default function Calculator() {
     const loadSavedCalculators = async () => {
         const token = localStorage.getItem("access");
         if (!token) return;
-        const res = await fetch(`${API_URL}/accounts/UserSavedCalculatorsViewSet/`, {
+        const res = await fetch(`${API_URL}/accounts/userSavedCalculators/`, {
             headers: {Authorization: `Bearer ${token}`,},});
         const data = await res.json();
         setSavedCalculatorsList(data);
@@ -314,7 +314,7 @@ export default function Calculator() {
         const token = localStorage.getItem("access");
         if (!window.confirm("Usunąć zapisany kalkulator?")) return;
         try {
-            const res = await fetch(`${API_URL}/accounts/UserSavedCalculatorsViewSet/${id}/`, {
+            const res = await fetch(`${API_URL}/accounts/userSavedCalculators/${id}/`, {
                 method: "DELETE",
                 headers: {Authorization: `Bearer ${token}`,
                 },
