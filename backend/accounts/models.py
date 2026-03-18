@@ -13,5 +13,7 @@ class SavedCalculator(models.Model):
 class UserCounter(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     login_amount = models.IntegerField(default=0)
-
+    @property
+    def calculator_amount(self):
+        return self.user.savedcalculator_set.count()
 
