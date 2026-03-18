@@ -47,9 +47,9 @@ class NameView(APIView):
             "is_superuser": request.user.is_superuser,
         })
 
-class UsersViewSet(viewsets.ModelViewSet):
+class AdminUsersViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('email')
-    serializer_class = UsersSerializer
+    serializer_class = AdminUsersSerializer
     permission_classes = [IsAdminUser]
 
 class UserSavedCalculatorsViewSet(ModelViewSet):
