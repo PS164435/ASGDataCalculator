@@ -69,10 +69,9 @@ class UserReportView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
         counter, created = UserCounter.objects.get_or_create(user=request.user)
-        calculators = SavedCalculator.objects.filter(user=request.user)
         return Response({
             "login_amount": counter.login_amount,
-            "calculator_amount": calculators.count()
+            "calculator_amount": counter.calculator_amount,
         })
 
 class AdminReportView(APIView):
@@ -82,11 +81,10 @@ class AdminReportView(APIView):
         data = []
         for user in users:
             counter, created = UserCounter.objects.get_or_create(user=user)
-            calculators = SavedCalculator.objects.filter(user=user)
             data.append({
                 "user_id": user.id,
                 "user_email": user.email,
                 "login_amount": counter.login_amount,
-                "calculator_amount": calculators.count()
+                "calculator_amount": counter.calculator_amount
             })
         return Response(data)
