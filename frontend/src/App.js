@@ -84,11 +84,11 @@ function App() {
               <>
               <Route
                 path="/login"
-                element={<Login onAuth={() => {setLoggedIn(true); myName();}} />}
+                element={<Login onAuth={() => setLoggedIn(true)} />}
               />
               <Route
                 path="/register"
-                element={<Register onAuth={() => {setLoggedIn(true); myName()}} />}
+                element={<Register onAuth={() => setLoggedIn(true)} />}
               />
               </>
         )}
