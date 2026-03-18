@@ -6,7 +6,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAdminUser
 from rest_framework import viewsets
 from .models import SavedCalculator, UserCounter
-from .serializers import RegisterSerializer, UserSavedCalculatorsSerializer, LoginSerializer, AdminSavedCalculatorsSerializer, UsersSerializer
+from .serializers import RegisterSerializer, UserSavedCalculatorsSerializer, LoginSerializer, AdminSavedCalculatorsSerializer, AdminUsersSerializer
 from django.contrib.auth.models import User
 
 class RegisterView(APIView):
