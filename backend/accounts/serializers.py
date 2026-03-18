@@ -87,16 +87,16 @@ class LoginSerializer(serializers.Serializer):
             "access": str(refresh.access_token),
             "refresh": str(refresh),
         }
-        
-class UserSavedCalculatorsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SavedCalculator
-        fields = ['id', 'name', 'data', 'created_at']
 
 class UsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'first_name', 'username', 'email', 'is_staff', 'is_superuser', 'is_active']
+
+class UserSavedCalculatorsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SavedCalculator
+        fields = ['id', 'name', 'data', 'created_at']
 
 class AdminSavedCalculatorsSerializer(serializers.ModelSerializer):
     user_email = serializers.EmailField(source='user.email')
