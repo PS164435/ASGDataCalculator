@@ -59,9 +59,6 @@ class UserSavedCalculatorsViewSet(ModelViewSet):
         return SavedCalculator.objects.filter(user=self.request.user)
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-        counter = UserCounter.objects.get(user=self.request.user)
-        counter.calculator_amount += 1
-        counter.save()
 
 class AdminSavedCalculatorsViewSet(viewsets.ModelViewSet):
     queryset = SavedCalculator.objects.all().order_by('id')
