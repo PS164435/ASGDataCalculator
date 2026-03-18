@@ -10,4 +10,4 @@ class UserCounterAdmin(admin.ModelAdmin):
     list_display = ('user', 'login_amount', 'calculator_amount')
 
     def calculator_amount(self, obj):
-        return obj.user.savedCalculator_set.count()
+        return obj.user.savedcalculator_set.count()
