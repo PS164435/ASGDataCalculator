@@ -16,7 +16,7 @@ const defaultScale = 14;
 let nameId = 0;
 
 function CalculatorRow({index, data, onRemove, disableRemove, onDuplicate, moveUp, moveDown}) {
-    const [name, setName] = useState(data?.name ?? `Calculator ${nameId + 1}`);
+    const [name, setName] = useState(data?.name ?? `Kalkulator ${nameId + 1}`);
     const [startingHeight, setStartingHeight] = useState(data?.startingHeight ?? 1.5);
     const [angle, setAngle] = useState(data?.angle ?? 0);
     const [fps, setFps] = useState(data?.fps ?? 0);
@@ -45,7 +45,7 @@ function CalculatorRow({index, data, onRemove, disableRemove, onDuplicate, moveU
         let vy = mps * Math.sin(angle * Math.PI / 180);
         let t = 0;
         const points = [];
-        while (y>0 && x<300 && t<10){
+        while (y>0 && x<1000 && t<10){
             points.push({x,y});
             const v = Math.sqrt(vx * vx + vy * vy);
             if(v < 1e-6) break;
@@ -179,7 +179,7 @@ function CalculatorRow({index, data, onRemove, disableRemove, onDuplicate, moveU
     const saveCalculator = async () => {
         const token = localStorage.getItem("access");
         try {
-            const res = await fetch(`${API_URL}/accounts/calculators/`, {
+            const res = await fetch(`${API_URL}/accounts/UserSavedCalculatorsViewSet/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -297,7 +297,7 @@ export default function Calculator() {
     const loadSavedCalculators = async () => {
         const token = localStorage.getItem("access");
         if (!token) return;
-        const res = await fetch(`${API_URL}/accounts/calculators/`, {
+        const res = await fetch(`${API_URL}/accounts/UserSavedCalculatorsViewSet/`, {
             headers: {Authorization: `Bearer ${token}`,},});
         const data = await res.json();
         setSavedCalculatorsList(data);
@@ -314,7 +314,7 @@ export default function Calculator() {
         const token = localStorage.getItem("access");
         if (!window.confirm("Usunąć zapisany kalkulator?")) return;
         try {
-            const res = await fetch(`${API_URL}/accounts/calculators/${id}/`, {
+            const res = await fetch(`${API_URL}/accounts/UserSavedCalculatorsViewSet/${id}/`, {
                 method: "DELETE",
                 headers: {Authorization: `Bearer ${token}`,
                 },
