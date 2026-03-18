@@ -19,7 +19,7 @@ function AdminPanel() {
         if (!userToEdit) return;
 
         try {
-            const res = await fetch(`${API_URL}/accounts/users/${userToEdit.id}/`, {
+            const res = await fetch(`${API_URL}/accounts/adminUsers/${userToEdit.id}/`, {
                 method: "PATCH",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -53,7 +53,7 @@ function AdminPanel() {
         if (!calculatorToEdit) return;
 
         try {
-            const res = await fetch(`${API_URL}/accounts/savedCalculators/${calculatorToEdit.id}/`, {
+            const res = await fetch(`${API_URL}/accounts/adminSavedCalculators/${calculatorToEdit.id}/`, {
                 method: "PATCH",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -85,7 +85,7 @@ function AdminPanel() {
         if (!window.confirm("Czy na pewno?")) return;
 
         try {
-            const res = await fetch(`${API_URL}/accounts/users/${id}/`, {
+            const res = await fetch(`${API_URL}/accounts/adminUsers/${id}/`, {
                 method: "DELETE",
                 headers: {Authorization: `Bearer ${token}`,},
             });
@@ -102,7 +102,7 @@ function AdminPanel() {
         if (!window.confirm("Czy na pewno?")) return;
 
         try {
-            const res = await fetch(`${API_URL}/accounts/savedCalculators/${id}/`, {
+            const res = await fetch(`${API_URL}/accounts/adminSavedCalculators/${id}/`, {
                 method: "DELETE",
                 headers: {Authorization: `Bearer ${token}`,},
             });
@@ -125,9 +125,9 @@ function AdminPanel() {
             
         try {
             const [usersRes, savedCalculatorsRes, reportRes] = await Promise.all([
-                fetch(`${API_URL}/accounts/users/`, {
+                fetch(`${API_URL}/accounts/adminUsers/`, {
                     headers: {Authorization: `Bearer ${token}`, }, }),
-                fetch(`${API_URL}/accounts/savedCalculators/`, {
+                fetch(`${API_URL}/accounts/adminSavedCalculators/`, {
                     headers: {Authorization: `Bearer ${token}`, }, }),
                 fetch(`${API_URL}/accounts/adminReport/`, {
                     headers: {Authorization: `Bearer ${token}`, }, }),
