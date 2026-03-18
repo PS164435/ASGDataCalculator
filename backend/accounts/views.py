@@ -36,17 +36,6 @@ class LoginView(APIView):
             "refresh": serializer.validated_data["refresh"],
         }, status=200)
 
-class UserSavedCalculatorsViewSet(ModelViewSet):
-    serializer_class = UserSavedCalculatorsSerializer
-    permission_classes = [IsAuthenticated]
-    def get_queryset(self):
-        return SavedCalculator.objects.filter(user=self.request.user)
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-        counter = UserCounter.objects.get(user=self.request.user)
-        counter.calculator_amount += 1
-        counter.save()
-
 class NameView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
@@ -62,6 +51,17 @@ class UsersViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('email')
     serializer_class = UsersSerializer
     permission_classes = [IsAdminUser]
+
+class UserSavedCalculatorsViewSet(ModelViewSet):
+    serializer_class = UserSavedCalculatorsSerializer
+    permission_classes = [IsAuthenticated]
+    def get_queryset(self):
+        return SavedCalculator.objects.filter(user=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+        counter = UserCounter.objects.get(user=self.request.user)
+        counter.calculator_amount += 1
+        counter.save()
 
 class AdminSavedCalculatorsViewSet(viewsets.ModelViewSet):
     queryset = SavedCalculator.objects.all().order_by('id')
