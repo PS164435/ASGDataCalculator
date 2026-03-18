@@ -88,7 +88,7 @@ class LoginSerializer(serializers.Serializer):
             "refresh": str(refresh),
         }
 
-class UsersSerializer(serializers.ModelSerializer):
+class AdminUsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'first_name', 'username', 'email', 'is_staff', 'is_superuser', 'is_active']
