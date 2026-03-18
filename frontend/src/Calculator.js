@@ -274,10 +274,10 @@ function CalculatorRow({index, data, onRemove, disableRemove, onDuplicate, moveU
 }
 
 export default function Calculator() {
-    const [rows, setRows] = useState([{id: Date.now(), data: null}]);
-    const addRow = () => { nameId += 1; setRows([...rows, {id: Date.now(), data: null}]); };
+    const [rows, setRows] = useState([{id: Date.now() + Math.random(), data: null}]);
+    const addRow = () => { nameId += 1; setRows([...rows, {id: Date.now() + Math.random(), data: null}]); };
     const removeRow = (id) => setRows(rows.filter(r => r.id !== id));
-    const duplicateRow = (data) => setRows([...rows, {id: Date.now(), data}]);
+    const duplicateRow = (data) => setRows([...rows, {id: Date.now() + Math.random(), data}]);
     const moveRowUp = (index) => {
         if (index === 0) return;
         const newRows = [...rows];
@@ -299,14 +299,14 @@ export default function Calculator() {
         if (!token) return;
         const res = await fetch(`${API_URL}/accounts/userSavedCalculators/`, {
             headers: {Authorization: `Bearer ${token}`,},});
+        if (!res.ok) {alert("Nie udało się pobrać zapisów");}
         const data = await res.json();
         setSavedCalculatorsList(data);
         setShowSavedCalculatorsList(true);
-        if (!res.ok) {alert("Nie udało się pobrać zapisów");}
     };
 
     const addSavedCalculator = (savedCalculator) => {
-        setRows([...rows, {id: Date.now(), data: savedCalculator.data }]);
+        setRows([...rows, {id: Date.now() + Math.random(), data: savedCalculator.data }]);
         setShowSavedCalculatorsList(false);
     };
 
