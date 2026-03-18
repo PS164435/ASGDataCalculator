@@ -299,7 +299,7 @@ export default function Calculator() {
         if (!token) return;
         const res = await fetch(`${API_URL}/accounts/userSavedCalculators/`, {
             headers: {Authorization: `Bearer ${token}`,},});
-        if (!res.ok) {alert("Nie udało się pobrać zapisów");}
+        if (!res.ok) {alert("Nie udało się pobrać zapisów"); return;}
         const data = await res.json();
         setSavedCalculatorsList(data);
         setShowSavedCalculatorsList(true);
@@ -357,7 +357,7 @@ export default function Calculator() {
                         <div className="modal-content">
                             {savedCalculatorsList.map((s) => (
                                 <div className="modal-content-row" key={s.id}>
-                                    <button className="modal-content-row-calculator" key={s.id} onClick={() => addSavedCalculator(s)}>{s.name}</button>
+                                    <button className="modal-content-row-calculator" onClick={() => addSavedCalculator(s)}>{s.name}</button>
                                     <button className="modal-content-row-delete" onClick={() => deleteSavedCalculator(s.id)}>🗑️</button>
                                 </div>
                             ))}
