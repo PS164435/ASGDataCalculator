@@ -53,9 +53,9 @@ class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(required=False, allow_blank=True)
     password = serializers.CharField(required=False, allow_blank=True, write_only=True)
 
-    def validate(self, attrs):
-        username = (attrs.get("username") or "").strip()
-        password = (attrs.get("password") or "").strip()
+    def validate(self, data):
+        username = (data.get("username") or "").strip()
+        password = (data.get("password") or "").strip()
 
         if not username:
             raise serializers.ValidationError({
