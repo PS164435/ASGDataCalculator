@@ -3,7 +3,9 @@ from .models import SavedCalculator, UserCounter
 
 @admin.register(SavedCalculator)
 class SavedCalculatorAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'user', 'updated_at')
+    list_display = ('id', 'get_name', 'user', 'updated_at')
+    def get_name(self, obj):
+        return obj.data.get('name')
 
 @admin.register(UserCounter)
 class UserCounterAdmin(admin.ModelAdmin):
