@@ -96,11 +96,11 @@ class AdminUsersSerializer(serializers.ModelSerializer):
 class UserSavedCalculatorsSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavedCalculator
-        fields = ['id', 'data', 'created_at']
+        fields = ['id', 'data', 'updated_at']
 
 class AdminSavedCalculatorsSerializer(serializers.ModelSerializer):
     user_email = serializers.EmailField(source='user.email')
     user_id = serializers.IntegerField(source='user.id')
     class Meta:
         model = SavedCalculator
-        fields = ['id', 'user_id', 'user_email', 'data', 'created_at']
+        fields = ['id', 'user_id', 'user_email', 'data', 'updated_at']
