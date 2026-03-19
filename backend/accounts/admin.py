@@ -3,7 +3,7 @@ from .models import SavedCalculator, UserCounter
 
 @admin.register(SavedCalculator)
 class SavedCalculatorAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'user', 'created_at')
+    list_display = ('id', 'name', 'user', 'updated_at')
 
 @admin.register(UserCounter)
 class UserCounterAdmin(admin.ModelAdmin):
