@@ -37,9 +37,7 @@ function AdminPanel() {
             if (!res.ok) throw new Error("Błąd edycji");
 
             const newUser = await res.json();
-
             setUsers (prev => prev.map(u => (u.id === newUser.id ? newUser : u)) );
-
             setUserToEdit(null);
             setShowUserEditWindow(false);
         } catch (err) {
@@ -60,18 +58,14 @@ function AdminPanel() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    id: calculatorToEdit.id,
-                    name: calculatorToEdit.name,
-                    created_at: calculatorToEdit.created_at,
+                    data: calculatorToEdit.data,
                     user: calculatorToEdit.user_id,
                 }),
             });
             if (!res.ok) throw new Error("Błąd edycji");
 
             const newCalculator = await res.json();
-
             setSavedCalculators (prev => prev.map(c => (c.id === newCalculator.id ? newCalculator : c)) );
-
             setCalculatorToEdit(null);
             setShowCalculatorEditWindow(false);
         } catch (err) {
@@ -206,10 +200,10 @@ function AdminPanel() {
                         <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Użytkownik Id</th>
-                            <th>Użytkownik Email</th>
+                            <th>Id Użytkownika</th>
+                            <th>Email Użytkownika</th>
                             <th>Nazwa</th>
-                            <th>Data Utworzenia</th>
+                            <th>Data Aktualizacji</th>
                             <th>Edytuj</th>
                             <th>Usuń</th>
                         </tr>
@@ -220,8 +214,8 @@ function AdminPanel() {
                                 <td>{r.id}</td>
                                 <td>{r.user_id}</td>
                                 <td>{r.user_email}</td>
-                                <td>{r.name}</td>
-                                <td>{r.created_at}</td>
+                                <td>{r.data?.name}</td>
+                                <td>{r.updated_at}</td>
                                 <td><button onClick={() => {setCalculatorToEdit({...r}); setShowCalculatorEditWindow(true);}}>Edytuj</button></td>
                                 <td><button onClick={() => deleteCalculator(r.id)}>Usuń</button></td>
                             </tr>
@@ -287,12 +281,10 @@ function AdminPanel() {
                             <h3>Edycja zapisu kalkulatora</h3>
                             <div className="modal-content">
                             <label className="modal-content-row modal-user-line">Id: {calculatorToEdit.id || ""}</label>
-                            <label className="modal-content-row modal-user-line">Użytkownik ID: <input type="number" value={calculatorToEdit.user_id || ""} 
+                            <label className="modal-content-row modal-user-line">ID Użytkownika: <input type="number" value={calculatorToEdit.user_id || ""} 
                                     onChange={(e) => setCalculatorToEdit({...calculatorToEdit, user_id: e.target.value, })}/></label>
-                            <label className="modal-content-row modal-user-line">Nazwa: <input type="text" value={calculatorToEdit.name || ""} 
-                                    onChange={(e) => setCalculatorToEdit({...calculatorToEdit, name: e.target.value, })}/></label>
-                            <label className="modal-content-row modal-user-line">Data Utworzenia: {calculatorToEdit.created_at || ""} 
-                                    <button type="button" onClick={() => setCalculatorToEdit({...calculatorToEdit, created_at: new Date().toISOString()})}>Zaktualizuj</button></label>
+                            <label className="modal-content-row modal-user-line">Nazwa: <input type="text" value={calculatorToEdit.data?.name || ""} 
+                                    onChange={(e) => setCalculatorToEdit({...calculatorToEdit, data: {...calculatorToEdit.data, name: e.target.value},})}/></label>
                             </div>
                             <div>
                                     <button onClick={editCalculator}>Zapisz</button>
@@ -308,8 +300,4 @@ function AdminPanel() {
 
 
 export default AdminPanel;            
-
-
-
-
 
