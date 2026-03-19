@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class SavedCalculator(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     data = models.JSONField()
-    created_at = models.DateTimeField()
+    updated_at = models.DateTimeField(auto_now=True)
 
 class UserCounter(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
