@@ -7,7 +7,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 class RegisterSerializer(serializers.ModelSerializer):
     name = serializers.CharField(required=True, error_messages={
         "blank": "Nazwa nie może być pusta",
-        "required": "Błąd przesłania danych [username]",
+        "required": "Błąd przesłania danych [name]",
     })
     email = serializers.EmailField(required=True, error_messages={
         "blank": "Email nie może być pusty",
