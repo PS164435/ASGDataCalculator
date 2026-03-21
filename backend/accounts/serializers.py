@@ -50,12 +50,12 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 class LoginSerializer(serializers.Serializer):
-    email = serializers.EmailField(required=False, allow_blank=True, error_messages={
+    email = serializers.EmailField(required=False, error_messages={
         "blank": "Email nie może być pusty",
         "required": "Błąd przesłania danych [email]",
         "invalid": "Email jest błędny",
     })
-    password = serializers.CharField(required=False, allow_blank=True, write_only=True, error_messages={
+    password = serializers.CharField(required=False, write_only=True, error_messages={
         "blank": "Hasło nie może być puste",
         "required": "Błąd przesłania danych [password]",
     })
