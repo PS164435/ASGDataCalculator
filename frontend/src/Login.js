@@ -32,7 +32,7 @@ function Login({ onAuth }) {
             console.log("LOGIN RESPONSE:", res.status, data);
 
             if (!res.ok) {
-                const message = data.username || data.password || data.detail || "Błąd logowania";
+                const message = data.email || data.password || data.detail || "Błąd logowania";
                 setError(message);
                 return;
             }
