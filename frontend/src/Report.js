@@ -54,7 +54,7 @@ function Report() {
       <div>
         <h1>Raport</h1>
         <p>Liczba logowań: {report.login_amount}</p>
-        <p>Liczba zapisanych kalkulatorów: {report.calculator_amount}{(localStorage.getItem("access")) && (<button onClick={loadSavedCalculators}>⌕</button>)}</p>
+        <p>Liczba zapisanych kalkulatorów: {report.calculator_amount}{" "}{(localStorage.getItem("access")) && (<button onClick={loadSavedCalculators}>⌕</button>)}</p>
 
         {showSavedCalculatorsList && (
                 <div className="modal-system" onClick={() => setShowSavedCalculatorsList(false)}>
