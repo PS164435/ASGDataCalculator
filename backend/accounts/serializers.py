@@ -59,7 +59,7 @@ class LoginSerializer(serializers.Serializer):
 
         if not email:
             raise serializers.ValidationError({
-                "username": "Email nie może być pusty"
+                "email": "Email nie może być pusty"
             })
 
         if not password:
@@ -71,7 +71,7 @@ class LoginSerializer(serializers.Serializer):
             user = User.objects.get(email=email)
         except User.DoesNotExist:
             raise serializers.ValidationError({
-                "username": "Użytkownik nie istnieje"
+                "email": "Użytkownik nie istnieje"
             })
 
         user = authenticate(username=user.username, password=password)
