@@ -74,7 +74,7 @@ class LoginSerializer(serializers.Serializer):
                 "email": "Użytkownik nie istnieje"
             })
 
-        user = authenticate(email=email, password=password)
+        user = authenticate(username=user.username, password=password)
         if not user:
             raise serializers.ValidationError({
                 "password": "Błędne hasło"
