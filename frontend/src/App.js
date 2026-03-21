@@ -12,14 +12,14 @@ import API_URL from "./api";
 function App() {
 
     const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("access"));
-    const [userName, setUserName] = useState(null);
+    const [userFirstName, setUserFirstName] = useState(null);
     const [isAdmin, setIsAdmin] = useState(false);
 
     const logout = useCallback(() => {
         localStorage.removeItem("access");
         localStorage.removeItem("refresh");
         setLoggedIn(false);
-        setUserName(null);
+        setUserFirstName(null);
         setIsAdmin(false);
     }, []);
 
@@ -38,7 +38,7 @@ function App() {
                 return;
             }
             const data = await res.json();
-            setUserName(data.first_name);
+            setUserFirstName(data.first_name);
             setIsAdmin(data.is_superuser);
         } catch (err) {
             alert("Błąd pobierania nazwy")
@@ -62,7 +62,7 @@ function App() {
             <div className="nav-auth">
               {loggedIn ? (
                   <>
-                  <span className="nav-status">{userName ? `${userName}` : "Zalogowano"}</span>
+                  <span className="nav-status">{userFirstName ? `${userFirstName}` : "Zalogowano"}</span>
                   <button className="button-logout" onClick={logout}>Wyloguj</button>
                   </>
               ) : (
