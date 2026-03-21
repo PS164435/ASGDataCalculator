@@ -2,7 +2,7 @@ import { useState } from "react";
 import API_URL from "./api";
 
 function Register({ onAuth }) {
-    const [name, name] = useState("");
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
@@ -77,11 +77,11 @@ function Register({ onAuth }) {
     return (
         <form onSubmit={handleRegister}>
             <h2>Zarejestruj się</h2>
-            <input placeholder="Nazwa" value={name} onChange={(e) => setUsername(e.target.value)}/>
+            <input placeholder="Nazwa" value={name} onChange={(e) => setName(e.target.value)}/>
             <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
             <input type="password" placeholder="Hasło" value={password} onChange={(e) => setPassword(e.target.value)}/>
             <input type="password" placeholder="Powtórz hasło" value={repeatPassword} onChange={(e) => setRepeatPassword(e.target.value)}/>
-            <button type="submit">Register</button>
+            <button type="submit">Zarejestruj</button>
             {error && <p className="error">{error}</p>}
         </form>
     );
