@@ -5,7 +5,7 @@ from .models import SavedCalculator
 from rest_framework_simplejwt.tokens import RefreshToken
 
 class RegisterSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(required=True, error_messages={
+    name = serializers.CharField(required=True, error_messages={
         "blank": "Nazwa nie może być pusta",
         "required": "Błąd przesłania danych [username]",
     })
@@ -25,7 +25,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'repeatPassword']
+        fields = ['name', 'email', 'password', 'repeatPassword']
 
     def validate_email(self, value):
         if User.objects.filter(email=value).exists():
@@ -45,7 +45,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             username=validated_data['email'],
             email=validated_data['email'],
             password=password,
-            first_name=validated_data['username'],
+            first_name=validated_data['name'],
         )
         return user
 
