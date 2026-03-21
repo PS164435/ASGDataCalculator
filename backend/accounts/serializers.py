@@ -50,14 +50,14 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField(required=False, allow_blank=True)
+    email = serializers.EmailField(required=False, allow_blank=True)
     password = serializers.CharField(required=False, allow_blank=True, write_only=True)
 
     def validate(self, data):
-        username = (data.get("username") or "").strip()
+        email = (data.get("email") or "").strip()
         password = (data.get("password") or "").strip()
 
-        if not username:
+        if not email:
             raise serializers.ValidationError({
                 "username": "Email nie może być pusty"
             })
@@ -68,7 +68,7 @@ class LoginSerializer(serializers.Serializer):
             })
 
         try:
-            user = User.objects.get(username=username)
+            user = User.objects.get(email=email)
         except User.DoesNotExist:
             raise serializers.ValidationError({
                 "username": "Użytkownik nie istnieje"
