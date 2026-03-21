@@ -50,22 +50,19 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 class LoginSerializer(serializers.Serializer):
-    email = serializers.EmailField(required=False, allow_blank=True)
-    password = serializers.CharField(required=False, allow_blank=True, write_only=True)
+    email = serializers.EmailField(required=False, allow_blank=True, error_messages={
+        "blank": "Email nie może być pusty",
+        "required": "Błąd przesłania danych [email]",
+        "invalid": "Email jest błędny",
+    })
+    password = serializers.CharField(required=False, allow_blank=True, write_only=True, error_messages={
+        "blank": "Hasło nie może być puste",
+        "required": "Błąd przesłania danych [password]",
+    })
 
     def validate(self, data):
         email = (data.get("email") or "").strip()
         password = (data.get("password") or "").strip()
-
-        if not email:
-            raise serializers.ValidationError({
-                "email": "Email nie może być pusty"
-            })
-
-        if not password:
-            raise serializers.ValidationError({
-                "password": "Hasło nie może być puste"
-            })
 
         try:
             user = User.objects.get(email=email)
