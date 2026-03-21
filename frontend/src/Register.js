@@ -2,7 +2,7 @@ import { useState } from "react";
 import API_URL from "./api";
 
 function Register({ onAuth }) {
-    const [username, setUsername] = useState("");
+    const [name, name] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
@@ -19,7 +19,7 @@ function Register({ onAuth }) {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    username: username,
+                    name: name,
                     email: email,
                     password: password,
                     repeatPassword: repeatPassword,
@@ -46,7 +46,7 @@ function Register({ onAuth }) {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    username: email,
+                    email,
                     password,
                 }),
             });
@@ -77,10 +77,10 @@ function Register({ onAuth }) {
     return (
         <form onSubmit={handleRegister}>
             <h2>Zarejestruj się</h2>
-            <input placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
+            <input placeholder="Nazwa" value={name} onChange={(e) => setUsername(e.target.value)}/>
             <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-            <input type="password" placeholder="RepeatPassword" value={repeatPassword} onChange={(e) => setRepeatPassword(e.target.value)}/>
+            <input type="password" placeholder="Hasło" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <input type="password" placeholder="Powtórz hasło" value={repeatPassword} onChange={(e) => setRepeatPassword(e.target.value)}/>
             <button type="submit">Register</button>
             {error && <p className="error">{error}</p>}
         </form>
