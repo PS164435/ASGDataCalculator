@@ -50,8 +50,8 @@ function Login({ onAuth }) {
         <form onSubmit={handleLogin}>
             <h2>Zaloguj się</h2>
             <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-            <button type="submit">Login</button>
+            <input type="password" placeholder="Hasło" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <button type="submit">Zaloguj</button>
             {error && <p className="error">{error}</p>}
         </form>
     );
