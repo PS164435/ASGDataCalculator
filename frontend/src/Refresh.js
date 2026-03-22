@@ -1,6 +1,6 @@
 import API_URL from "./api";
 
-export async function fetchWithAuth(url, options = {}) {
+export async function fetchAuthRefr(url, options = {}) {
     const access = localStorage.getItem("access");
 
     options.headers = {
