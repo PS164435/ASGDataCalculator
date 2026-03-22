@@ -8,6 +8,7 @@ import './main.css';
 import Login from "./Login";
 import Register from "./Register";
 import API_URL from "./api";
+import {fetchAuthRefr} from "./Refresh";
 
 function App() {
 
@@ -24,26 +25,16 @@ function App() {
     }, []);
 
     const myName = useCallback(async () => {
-        const token = localStorage.getItem("access");
-
-        if (!token) return;
         try {
-            const res = await fetch(`${API_URL}/accounts/name/`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            if (!res.ok) {
-                logout();
-                return;
-            }
+            const res = await fetchAuthRefr(`${API_URL}/accounts/name/`);
+            if (!res.ok) return;
             const data = await res.json();
             setUserFirstName(data.first_name);
             setIsAdmin(data.is_superuser);
         } catch (err) {
             alert("Błąd pobierania nazwy")
         }
-    }, [logout]);
+    }, []);
 
     useEffect(() => {
         if (loggedIn) myName();
