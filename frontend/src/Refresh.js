@@ -5,7 +5,7 @@ export async function fetchAuthRefr(url, options = {}) {
 
     options.headers = { ...(options.headers || {}), Authorization: `Bearer ${access}`, };
 
-    const res = await fetch(url, options);
+    let res = await fetch(url, options);
 
     if (res.status === 401) { 
         const refresh = localStorage.getItem("refresh");
