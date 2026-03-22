@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import API_URL from "./api";
+import {fetchAuthRefr} from "./Refresh";
 
 function Report() {
   const [report, setReport] = useState(null);
   
   const fetchData = async () => {
-      const token = localStorage.getItem("access");
-      const res = await fetch(`${API_URL}/accounts/report/`, {headers: {Authorization: `Bearer ${token}`}})
+      const res = await fetchAuthRefr(`${API_URL}/accounts/report/`)
       if (!res.ok) {console.error("Błąd pobierania danych"); return;}
       const data = await res.json();
       setReport(data);
@@ -21,10 +21,7 @@ function Report() {
   if (!report) return <p>Loading...</p>;
   
   const loadSavedCalculators = async () => {
-        const token = localStorage.getItem("access");
-        if (!token) return;
-        const res = await fetch(`${API_URL}/accounts/userSavedCalculators/`, {
-            headers: {Authorization: `Bearer ${token}`,},});
+        const res = await fetchAuthRefr(`${API_URL}/accounts/userSavedCalculators/`);
         if (!res.ok) {alert("Nie udało się pobrać zapisów"); return;}
         const data = await res.json();
         setSavedCalculatorsList(data);
@@ -32,13 +29,10 @@ function Report() {
     };
 
   const deleteSavedCalculator = async (id) => {
-        const token = localStorage.getItem("access");
         if (!window.confirm("Usunąć zapisany kalkulator?")) return;
         try {
-            const res = await fetch(`${API_URL}/accounts/userSavedCalculators/${id}/`, {
+            const res = await fetchAuthRefr(`${API_URL}/accounts/userSavedCalculators/${id}/`, {
                 method: "DELETE",
-                headers: {Authorization: `Bearer ${token}`,
-                },
             });
             if (!res.ok) {
                 alert("Nie udało się usunąć");
