@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import API_URL from "./api";
+import {fetchAuthRefr} from "./Refresh";
 
 const g = 9.81;
 const Cd = 0.47;
@@ -177,13 +178,11 @@ function CalculatorRow({index, data, onRemove, disableRemove, onDuplicate, moveU
     const handleHopUpChange = (value) => setHopUp(value);
 
     const saveCalculator = async () => {
-        const token = localStorage.getItem("access");
         try {
-            const res = await fetch(`${API_URL}/accounts/userSavedCalculators/`, {
+            const res = await fetchAuthRefr(`${API_URL}/accounts/userSavedCalculators/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({
                     data: {name, startingHeight, angle, fps, mps, weight, toJoule, joule, hopUp, range, showTrajectory},
@@ -293,10 +292,7 @@ export default function Calculator() {
     const [showSavedCalculatorsList, setShowSavedCalculatorsList] = useState(false);
 
     const loadSavedCalculators = async () => {
-        const token = localStorage.getItem("access");
-        if (!token) return;
-        const res = await fetch(`${API_URL}/accounts/userSavedCalculators/`, {
-            headers: {Authorization: `Bearer ${token}`,},});
+        const res = await fetchAuthRefr(`${API_URL}/accounts/userSavedCalculators/`);
         if (!res.ok) {alert("Nie udało się pobrać zapisów"); return;}
         const data = await res.json();
         setSavedCalculatorsList(data);
@@ -309,13 +305,10 @@ export default function Calculator() {
     };
 
     const deleteSavedCalculator = async (id) => {
-        const token = localStorage.getItem("access");
         if (!window.confirm("Usunąć zapisany kalkulator?")) return;
         try {
-            const res = await fetch(`${API_URL}/accounts/userSavedCalculators/${id}/`, {
+            const res = await fetchAuthRefr(`${API_URL}/accounts/userSavedCalculators/${id}/`, {
                 method: "DELETE",
-                headers: {Authorization: `Bearer ${token}`,
-                },
             });
             if (!res.ok) {
                 alert("Nie udało się usunąć");
