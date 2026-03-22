@@ -88,6 +88,3 @@ function Register({ onAuth }) {
 }
 
 export default Register;
-
-
-
