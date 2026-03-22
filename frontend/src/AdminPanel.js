@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import API_URL from "./api";
+import {fetchAuthRefr} from "./Refresh";
 
 function AdminPanel() {
     const [users, setUsers] = useState([]);
@@ -15,14 +16,12 @@ function AdminPanel() {
     const [showCalculatorEditWindow, setShowCalculatorEditWindow] = useState(false);
 
     const editUser = async () => {
-        const token = localStorage.getItem("access");
         if (!userToEdit) return;
 
         try {
-            const res = await fetch(`${API_URL}/accounts/adminUsers/${userToEdit.id}/`, {
+            const res = await fetchAuthRefr(`${API_URL}/accounts/adminUsers/${userToEdit.id}/`, {
                 method: "PATCH",
                 headers: {
-                    Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
@@ -47,14 +46,12 @@ function AdminPanel() {
     }
 
     const editCalculator = async () => {
-        const token = localStorage.getItem("access");
         if (!calculatorToEdit) return;
 
         try {
-            const res = await fetch(`${API_URL}/accounts/adminSavedCalculators/${calculatorToEdit.id}/`, {
+            const res = await fetchAuthRefr(`${API_URL}/accounts/adminSavedCalculators/${calculatorToEdit.id}/`, {
                 method: "PATCH",
                 headers: {
-                    Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
@@ -75,13 +72,11 @@ function AdminPanel() {
     }
 
     const deleteUser = async (id) => {
-        const token = localStorage.getItem("access");
         if (!window.confirm("Czy na pewno?")) return;
 
         try {
-            const res = await fetch(`${API_URL}/accounts/adminUsers/${id}/`, {
+            const res = await fetchAuthRefr(`${API_URL}/accounts/adminUsers/${id}/`, {
                 method: "DELETE",
-                headers: {Authorization: `Bearer ${token}`,},
             });
             if (!res.ok) throw new Error("Błąd usuwania");
 
@@ -92,13 +87,11 @@ function AdminPanel() {
     };
 
     const deleteCalculator = async (id) => {
-        const token = localStorage.getItem("access");
         if (!window.confirm("Czy na pewno?")) return;
 
         try {
-            const res = await fetch(`${API_URL}/accounts/adminSavedCalculators/${id}/`, {
+            const res = await fetchAuthRefr(`${API_URL}/accounts/adminSavedCalculators/${id}/`, {
                 method: "DELETE",
-                headers: {Authorization: `Bearer ${token}`,},
             });
             if (!res.ok) throw new Error();
 
@@ -108,23 +101,12 @@ function AdminPanel() {
         }
     };
 
-    const fetchData = async () => {
-        const token = localStorage.getItem("access");
-
-        if (!token) {
-            setError("Odmowa dostępu");
-            setLoading(false);
-            return;
-        }
-            
+    const fetchData = async () => {         
         try {
             const [usersRes, savedCalculatorsRes, reportRes] = await Promise.all([
-                fetch(`${API_URL}/accounts/adminUsers/`, {
-                    headers: {Authorization: `Bearer ${token}`, }, }),
-                fetch(`${API_URL}/accounts/adminSavedCalculators/`, {
-                    headers: {Authorization: `Bearer ${token}`, }, }),
-                fetch(`${API_URL}/accounts/adminReport/`, {
-                    headers: {Authorization: `Bearer ${token}`, }, }),
+                fetchAuthRefr(`${API_URL}/accounts/adminUsers/`),
+                fetchAuthRefr(`${API_URL}/accounts/adminSavedCalculators/`),
+                fetchAuthRefr(`${API_URL}/accounts/adminReport/`),
             ]);
 
             if (!usersRes.ok || !savedCalculatorsRes.ok || !reportRes.ok) {
@@ -300,4 +282,3 @@ function AdminPanel() {
 
 
 export default AdminPanel;            
-
