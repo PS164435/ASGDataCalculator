@@ -45,7 +45,7 @@ class NameView(APIView):
             "is_superuser": request.user.is_superuser,
         })
 
-class AdminUsersViewSet(viewsets.ModelViewSet):
+class AdminUsersViewSet(ModelViewSet):
     queryset = User.objects.all().order_by('email')
     serializer_class = AdminUsersSerializer
     permission_classes = [IsAdminUser]
@@ -58,7 +58,7 @@ class UserSavedCalculatorsViewSet(ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-class AdminSavedCalculatorsViewSet(viewsets.ModelViewSet):
+class AdminSavedCalculatorsViewSet(ModelViewSet):
     queryset = SavedCalculator.objects.all().order_by('id')
     serializer_class = AdminSavedCalculatorsSerializer
     permission_classes = [IsAdminUser]
