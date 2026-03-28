@@ -79,14 +79,15 @@ function Weather() {
                         - Nieprzyjazne warunki
                     </div>
                 </div>
-            </div>
         
-            <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
-                {Object.keys(cities).map((city) => (<option key={city} value={city}>{city}</option>))}
-            </select>
-            <select value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)}>
-                {availableDates.map(date => (<option key={date} value={date}>{date}</option>))}
-            </select>
+                <select value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
+                    {Object.keys(cities).map((city) => (<option key={city} value={city}>{city}</option>))}
+                </select>
+                <select value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)}>
+                    {availableDates.map(date => (<option key={date} value={date}>{date}</option>))}
+                </select>
+            </div>
+                                        
                 {weather && (
                     <table className="table">
                         <thead>
