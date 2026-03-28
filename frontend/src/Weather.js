@@ -64,7 +64,7 @@ function Weather() {
     return (
         <div>
             <h2>Pogoda</h2>
-            <div> className="weather-gaps"
+            <div className="weather-gaps">
                 <div>
                     <div className="legend-item">
                         <span className="legend-square green-record"></span>
