@@ -207,6 +207,12 @@ nav a:hover{
     background: darkgray;
 }
 
+.weather-gaps{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .green-record{
     background: #9FE371;
 }
