@@ -64,18 +64,20 @@ function Weather() {
     return (
         <div>
             <h2>Pogoda</h2>
-            <div>
-                <div className="legend-item">
-                    <span className="legend-square green-record"></span>
-                    - Przyjazne warunki
-                </div>
-                <div className="legend-item">
-                    <span className="legend-square yellow-record"></span>
-                    - Umiarkowane warunki
-                </div>
-                <div className="legend-item">
-                    <span className="legend-square red-record"></span>
-                    - Nieprzyjazne warunki
+            <div> className="weather-gaps"
+                <div>
+                    <div className="legend-item">
+                        <span className="legend-square green-record"></span>
+                        - Przyjazne warunki
+                    </div>
+                    <div className="legend-item">
+                        <span className="legend-square yellow-record"></span>
+                        - Umiarkowane warunki
+                    </div>
+                    <div className="legend-item">
+                        <span className="legend-square red-record"></span>
+                        - Nieprzyjazne warunki
+                    </div>
                 </div>
             </div>
         
