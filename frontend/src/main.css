@@ -41,6 +41,7 @@ nav a:hover{
 .table{
     border-collapse: collapse;
     margin-bottom: 2rem;
+    background: #DEDEDE;
 }
 
 .table th,
