@@ -69,7 +69,7 @@ function App() {
         {loggedIn && isAdmin && (<Route path="/adminPanel" element={<AdminPanel/>}/>)}
         {loggedIn && (<Route path="/report" element={<Report/>}/>)}
         <Route path="/weather" element={<Weather/>}/>
-        <Route path="/calculator" element={<Calculator/>}/>
+        <Route path="/calculator" element={<Calculator loggedIn={loggedIn}/>}/>
 
         {!loggedIn && (
               <>
