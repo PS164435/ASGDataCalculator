@@ -270,7 +270,7 @@ function CalculatorRow({index, data, onRemove, disableRemove, onDuplicate, moveU
     );
 }
 
-export default function Calculator() {
+export default function Calculator({loggedIn}) {
     const [rows, setRows] = useState([{id: Date.now() + Math.random(), data: null}]);
     const addRow = () => { nameId += 1; setRows([...rows, {id: Date.now() + Math.random(), data: null}]); };
     const removeRow = (id) => setRows(rows.filter(r => r.id !== id));
@@ -321,10 +321,10 @@ export default function Calculator() {
     };
 
     useEffect(() => {
-        if (!localStorage.getItem("access")) {
+        if (loggedIn) {
             setRows([{id: Date.now() + Math.random(), data: null}]);
         }
-    }
+    }. [loggedIn]);
 
     return (
         <div className="calculator-site">
