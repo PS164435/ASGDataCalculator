@@ -110,7 +110,7 @@ function CalculatorRow({index, data, onRemove, disableRemove, onDuplicate, moveU
         ctx.save();
         ctx.translate(offset.x - 35, offset.y - 60);
         ctx.rotate(-Math.PI / 2);
-        ctx.fillText("wysokość [m]", 30, 10);
+        ctx.fillText("wysokość [m]", 40, 10);
         ctx.restore();
         ctx.save();
         ctx.translate(offset.x, offset.y);
