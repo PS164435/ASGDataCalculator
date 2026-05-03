@@ -127,6 +127,9 @@ function CalculatorRow({index, data, onRemove, disableRemove, onDuplicate, moveU
         const trajectory = calculateTrajectory();
         setRange(trajectory.length ? trajectory.at(-1).x.toFixed(2) : 0);
         drawChart(trajectory);
+        if (!localStorage.getItem("access")) {
+            setRows([{id: Date.now() + Math.random(), data: null}]);
+        }
     }, [calculateTrajectory, drawChart, showTrajectory]);
 
     const zooming = (e) => {
