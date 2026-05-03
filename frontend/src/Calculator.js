@@ -324,7 +324,7 @@ export default function Calculator({loggedIn}) {
         if (loggedIn) {
             setRows([{id: Date.now() + Math.random(), data: null}]);
         }
-    }. [loggedIn]);
+    }, [loggedIn]);
 
     return (
         <div className="calculator-site">
