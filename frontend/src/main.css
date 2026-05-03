@@ -241,5 +241,7 @@ nav a:hover{
     height: 20px;
 }
 
-
+select{
+    width: 20%;
+}
 
