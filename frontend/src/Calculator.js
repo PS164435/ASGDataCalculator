@@ -321,7 +321,7 @@ export default function Calculator({loggedIn}) {
     };
 
     useEffect(() => {
-        if (loggedIn) {
+        if (!loggedIn) {
             setRows([{id: Date.now() + Math.random(), data: null}]);
         }
     }, [loggedIn]);
